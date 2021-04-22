@@ -56,7 +56,9 @@ namespace CClick
             // 
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Items.AddRange(new object[] {
-            "10 clicks"});
+            "10 clicks",
+            "100 clicks",
+            "10 seconds"});
             this.comboBox.Location = new System.Drawing.Point(13, 13);
             this.comboBox.Name = "comboBox";
             this.comboBox.Size = new System.Drawing.Size(341, 23);
