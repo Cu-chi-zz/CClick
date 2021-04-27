@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Timers;
 using Octokit;
+using System.Runtime.InteropServices;
 
 namespace CClick
 {
@@ -19,7 +20,7 @@ namespace CClick
         private static int clickCounter = 0;
         private static Stopwatch watcher = new Stopwatch();
         private static System.Timers.Timer timer;
-        private static string version = "1.0.5";
+        private static string version = "1.0.6";
 
         public Form1()
         {
@@ -43,7 +44,7 @@ namespace CClick
 
                         if (verResult == DialogResult.Yes)
                         {
-                            Process.Start($"https://github.com/Cu-chi/CClick/releases/download/{latest.TagName}/CClick-{latest.TagName}.zip");
+                            Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/Cu-chi/CClick/releases/download/{latest.TagName}/CClick-{latest.TagName}.zip") { CreateNoWindow = true });
                         }
                     }
                 }
@@ -76,9 +77,11 @@ namespace CClick
                         if (clickCounter < 10)
                         {
                             clickCounter++;
+                            clickLabel.Text = 10 - clickCounter + " left";
                             if (clickCounter == 10)
                             {
-                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s\n";
+                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 10 clicks\n";
+                                richTextBox1.ScrollToCaret();
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
@@ -88,16 +91,33 @@ namespace CClick
                         if (clickCounter < 100)
                         {
                             clickCounter++;
+                            clickLabel.Text = 100 - clickCounter + " left";
                             if (clickCounter == 100)
                             {
-                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s\n";
+                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 100 clicks\n";
+                                richTextBox1.ScrollToCaret();
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
-                    else if (comboBox.SelectedIndex == 2 || comboBox.SelectedIndex == 3) // Test using time
+                    else if (comboBox.SelectedIndex == 2) // 1000 clicks
+                    {
+                        if (clickCounter < 1000)
+                        {
+                            clickCounter++;
+                            clickLabel.Text = 1000 - clickCounter + " left";
+                            if (clickCounter == 1000)
+                            {
+                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 1000 clicks\n";
+                                richTextBox1.ScrollToCaret();
+                                MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
+                    else if (comboBox.SelectedIndex == 3 || comboBox.SelectedIndex == 4) // Test using time
                     {
                         clickCounter++;
+                        clickLabel.Text = clickCounter + " clicks";
                     }
                 }
                 else
@@ -117,6 +137,19 @@ namespace CClick
             timer = new System.Timers.Timer();
             timer.Elapsed += Timer;
             timer.Enabled = true;
+
+            if (comboBox.SelectedIndex == 0) // 10 Clicks
+            {
+                clickLabel.Text = 10 - clickCounter + " left";
+            }
+            else if (comboBox.SelectedIndex == 1) // 100 clicks
+            {
+                clickLabel.Text = 100 - clickCounter + " left";
+            }
+            else if (comboBox.SelectedIndex == 2) // 1000 clicks
+            {
+                clickLabel.Text = 1000 - clickCounter + " left";
+            }
         }
 
         private TimeSpan EndTest()
@@ -132,40 +165,55 @@ namespace CClick
 
         private void Timer(object source, ElapsedEventArgs e)
         {
-            label1.Invoke(new Action(() => label1.Text = Math.Round(watcher.Elapsed.TotalSeconds, 1).ToString() + "s"));
-            label1.Invoke(new Action(() =>
+            timeLabel.Invoke(new Action(() => timeLabel.Text = Math.Round(watcher.Elapsed.TotalSeconds, 1).ToString() + "s"));
+            timeLabel.Invoke(new Action(() =>
             {
-                label1.Refresh();
+                timeLabel.Refresh();
 
-                if (comboBox.SelectedIndex == 2)
+                if (comboBox.SelectedIndex == 3)
                 {
                     if (watcher.ElapsedMilliseconds >= 10000)
                     {
+                        long ms = watcher.ElapsedMilliseconds;
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
                             richTextBox1.Text += "Clicked ";
                             richTextBox1.Text += clickCounter.ToString();
                             richTextBox1.Text += " times in 10s\n";
+                            richTextBox1.Text += "Clicks per second on average: \n";
+                            richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
+                            richTextBox1.Text += " cps\n";
+                            richTextBox1.ScrollToCaret();
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                else if (comboBox.SelectedIndex == 3)
+                else if (comboBox.SelectedIndex == 4)
                 {
                     if (watcher.ElapsedMilliseconds >= 1000)
                     {
+                        long ms = watcher.ElapsedMilliseconds;
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
                             richTextBox1.Text += "Clicked ";
                             richTextBox1.Text += clickCounter.ToString();
                             richTextBox1.Text += " times in 1s\n";
+                            richTextBox1.Text += "Clicks per second on average: \n";
+                            richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
+                            richTextBox1.Text += " cps\n";
+                            richTextBox1.ScrollToCaret();
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }));
+        }
+
+        private double ToClickPerSeconds(int totalClicks, long msElapsed)
+        {
+            return (double)totalClicks / (double)(msElapsed / 1000);
         }
     }
 }
