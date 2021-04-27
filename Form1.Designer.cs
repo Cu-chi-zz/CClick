@@ -58,7 +58,8 @@ namespace CClick
             this.comboBox.Items.AddRange(new object[] {
             "10 clicks",
             "100 clicks",
-            "10 seconds"});
+            "10 seconds",
+            "1 second"});
             this.comboBox.Location = new System.Drawing.Point(13, 13);
             this.comboBox.Name = "comboBox";
             this.comboBox.Size = new System.Drawing.Size(341, 23);
@@ -66,6 +67,7 @@ namespace CClick
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.richTextBox1.Location = new System.Drawing.Point(13, 43);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(341, 103);
@@ -78,9 +80,8 @@ namespace CClick
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(13, 157);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 25);
+            this.label1.Size = new System.Drawing.Size(0, 25);
             this.label1.TabIndex = 3;
-            this.label1.Text = "aa";
             // 
             // Form1
             // 
@@ -94,6 +95,7 @@ namespace CClick
             this.Name = "Form1";
             this.Tag = "";
             this.Text = "CClicker";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
