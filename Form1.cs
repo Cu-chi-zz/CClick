@@ -39,7 +39,7 @@ namespace CClick
 
                     if (version != latest.TagName)
                     {
-                        DialogResult verResult = MessageBox.Show($"A new version is now available :\nYou are using > V{version}\nNew > {latest.TagName}\nDo you want to install the new version?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+                        DialogResult verResult = MessageBox.Show($"A new version is now available :\nYou are using > {version}\nNew > {latest.TagName}\nDo you want to install the new version?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
 
                         if (verResult == DialogResult.Yes)
                         {
@@ -60,7 +60,6 @@ namespace CClick
 
         private void clickableButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"{e.GetType()}", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             if (!running)
             {
                 if (comboBox.SelectedIndex != -1)
