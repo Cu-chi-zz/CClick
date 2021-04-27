@@ -49,12 +49,12 @@ namespace CClick
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    MessageBox.Show($"No version found.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"GIT VERSION CHECK: No version found.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (NotFoundException)
             {
-                MessageBox.Show($"Can't find this repository on github.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"GIT VERSION CHECK: Can't find this repository on github.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
