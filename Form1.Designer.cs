@@ -96,8 +96,9 @@ namespace CClick
             // 
             this.clickLabel.AutoSize = true;
             this.clickLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.clickLabel.Location = new System.Drawing.Point(360, 13);
+            this.clickLabel.Location = new System.Drawing.Point(250, 157);
             this.clickLabel.Name = "clickLabel";
+            this.clickLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.clickLabel.Size = new System.Drawing.Size(0, 25);
             this.clickLabel.TabIndex = 3;
             this.clickLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -162,7 +163,7 @@ namespace CClick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 450);
+            this.ClientSize = new System.Drawing.Size(364, 451);
             this.Controls.Add(this.battleDamageTextBox);
             this.Controls.Add(this.battleHealthTextBox);
             this.Controls.Add(this.battleTypeCheckBox);

@@ -304,7 +304,22 @@ namespace CClick
 
                 typeTextBox.Visible = true;
                 typeTextBox.Enabled = true;
-                this.Size = new Size(750, this.Size.Height);
+                Size = new Size(630, this.Size.Height);
+            }
+            else
+            {
+                if (Size != new Size(380, 490))
+                {
+                    Size = new Size(380, 490);
+
+                    typeCheckBox.Enabled = false;
+                    typeCheckBox.Visible = false;
+                    battleTypeCheckBox.Enabled = false;
+                    battleTypeCheckBox.Visible = false;
+
+                    typeTextBox.Visible = false;
+                    typeTextBox.Enabled = false;
+                }
             }
         }
 
