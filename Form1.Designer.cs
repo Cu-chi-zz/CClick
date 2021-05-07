@@ -34,6 +34,11 @@ namespace CClick
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.timeLabel = new System.Windows.Forms.Label();
             this.clickLabel = new System.Windows.Forms.Label();
+            this.typeTextBox = new System.Windows.Forms.TextBox();
+            this.typeCheckBox = new System.Windows.Forms.CheckBox();
+            this.battleTypeCheckBox = new System.Windows.Forms.CheckBox();
+            this.battleHealthTextBox = new System.Windows.Forms.TextBox();
+            this.battleDamageTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // clickableButton
@@ -61,11 +66,13 @@ namespace CClick
             "100 clicks",
             "1000 clicks",
             "10 seconds",
-            "1 second"});
+            "1 second",
+            "Custom"});
             this.comboBox.Location = new System.Drawing.Point(13, 13);
             this.comboBox.Name = "comboBox";
             this.comboBox.Size = new System.Drawing.Size(341, 23);
             this.comboBox.TabIndex = 1;
+            this.comboBox.SelectionChangeCommitted += new System.EventHandler(this.comboBox_SelectionChangeCommitted);
             // 
             // richTextBox1
             // 
@@ -95,11 +102,72 @@ namespace CClick
             this.clickLabel.TabIndex = 3;
             this.clickLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
+            // typeTextBox
+            // 
+            this.typeTextBox.Enabled = false;
+            this.typeTextBox.Location = new System.Drawing.Point(360, 241);
+            this.typeTextBox.Name = "typeTextBox";
+            this.typeTextBox.PlaceholderText = "Max clicks";
+            this.typeTextBox.Size = new System.Drawing.Size(112, 23);
+            this.typeTextBox.TabIndex = 5;
+            this.typeTextBox.Visible = false;
+            // 
+            // typeCheckBox
+            // 
+            this.typeCheckBox.AutoSize = true;
+            this.typeCheckBox.Enabled = false;
+            this.typeCheckBox.Location = new System.Drawing.Point(361, 194);
+            this.typeCheckBox.Name = "typeCheckBox";
+            this.typeCheckBox.Size = new System.Drawing.Size(259, 19);
+            this.typeCheckBox.TabIndex = 6;
+            this.typeCheckBox.Text = "Type (check: with Timer, default: clicks limit)";
+            this.typeCheckBox.UseVisualStyleBackColor = true;
+            this.typeCheckBox.Visible = false;
+            this.typeCheckBox.CheckedChanged += new System.EventHandler(this.typeCheckBox_CheckedChanged);
+            // 
+            // battleTypeCheckBox
+            // 
+            this.battleTypeCheckBox.AutoSize = true;
+            this.battleTypeCheckBox.Enabled = false;
+            this.battleTypeCheckBox.Location = new System.Drawing.Point(360, 216);
+            this.battleTypeCheckBox.Name = "battleTypeCheckBox";
+            this.battleTypeCheckBox.Size = new System.Drawing.Size(83, 19);
+            this.battleTypeCheckBox.TabIndex = 7;
+            this.battleTypeCheckBox.Text = "Battle Type";
+            this.battleTypeCheckBox.UseVisualStyleBackColor = true;
+            this.battleTypeCheckBox.Visible = false;
+            this.battleTypeCheckBox.CheckedChanged += new System.EventHandler(this.battleTypeCheckBox_CheckedChanged);
+            // 
+            // battleHealthTextBox
+            // 
+            this.battleHealthTextBox.Enabled = false;
+            this.battleHealthTextBox.Location = new System.Drawing.Point(360, 270);
+            this.battleHealthTextBox.Name = "battleHealthTextBox";
+            this.battleHealthTextBox.PlaceholderText = "Health (Battle)";
+            this.battleHealthTextBox.Size = new System.Drawing.Size(112, 23);
+            this.battleHealthTextBox.TabIndex = 8;
+            this.battleHealthTextBox.Visible = false;
+            // 
+            // battleDamageTextBox
+            // 
+            this.battleDamageTextBox.Enabled = false;
+            this.battleDamageTextBox.Location = new System.Drawing.Point(360, 299);
+            this.battleDamageTextBox.Name = "battleDamageTextBox";
+            this.battleDamageTextBox.PlaceholderText = "Damage (Battle)";
+            this.battleDamageTextBox.Size = new System.Drawing.Size(112, 23);
+            this.battleDamageTextBox.TabIndex = 9;
+            this.battleDamageTextBox.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(484, 450);
+            this.Controls.Add(this.battleDamageTextBox);
+            this.Controls.Add(this.battleHealthTextBox);
+            this.Controls.Add(this.battleTypeCheckBox);
+            this.Controls.Add(this.typeCheckBox);
+            this.Controls.Add(this.typeTextBox);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.clickLabel);
             this.Controls.Add(this.richTextBox1);
@@ -123,6 +191,11 @@ namespace CClick
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.Label clickLabel;
+        private System.Windows.Forms.TextBox typeTextBox;
+        private System.Windows.Forms.CheckBox typeCheckBox;
+        private System.Windows.Forms.CheckBox battleTypeCheckBox;
+        private System.Windows.Forms.TextBox battleHealthTextBox;
+        private System.Windows.Forms.TextBox battleDamageTextBox;
     }
 }
 

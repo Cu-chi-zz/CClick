@@ -119,6 +119,26 @@ namespace CClick
                         clickCounter++;
                         clickLabel.Text = clickCounter + " clicks";
                     }
+                    else if ((comboBox.SelectedIndex == 5) && (typeCheckBox.Checked)) // Test using time
+                    {
+                        clickCounter++;
+                        clickLabel.Text = clickCounter + " clicks";
+                    }
+                    else if ((comboBox.SelectedIndex == 5) && (!typeCheckBox.Checked)) // (Custom) Click mode
+                    {
+                        int k = int.Parse(typeTextBox.Text);
+                        if (clickCounter < k)
+                        {
+                            clickCounter++;
+                            clickLabel.Text = k - clickCounter + " left";
+                            if (clickCounter == k)
+                            {
+                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {k} clicks\n";
+                                richTextBox1.ScrollToCaret();
+                                MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                    }
                 }
                 else
                 {
@@ -130,7 +150,7 @@ namespace CClick
         private void SetupOnNewRun()
         {
             clickableButton.Text = "CLICK";
-            clickCounter = 0;
+            clickCounter = 1;
             running = true;
             watcher.Reset();
             watcher.Start();
@@ -149,6 +169,11 @@ namespace CClick
             else if (comboBox.SelectedIndex == 2) // 1000 clicks
             {
                 clickLabel.Text = 1000 - clickCounter + " left";
+            }
+            else if ((comboBox.SelectedIndex == 5) && (!typeCheckBox.Checked)) // Custom with clicks mode
+            {
+                int k = int.Parse(typeTextBox.Text);
+                clickLabel.Text = k - clickCounter + " left";
             }
         }
 
@@ -184,7 +209,6 @@ namespace CClick
                             richTextBox1.Text += "Clicks per second on average: \n";
                             richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
                             richTextBox1.Text += " cps\n";
-                            richTextBox1.ScrollToCaret();
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -203,7 +227,25 @@ namespace CClick
                             richTextBox1.Text += "Clicks per second on average: \n";
                             richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
                             richTextBox1.Text += " cps\n";
-                            richTextBox1.ScrollToCaret();
+                        }));
+                        MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else if ((comboBox.SelectedIndex == 5) && (typeCheckBox.Checked))
+                {
+                    int secFromTextBox = int.Parse(typeTextBox.Text);
+                    if (watcher.ElapsedMilliseconds >= secFromTextBox * 1000)
+                    {
+                        long ms = watcher.ElapsedMilliseconds;
+                        EndTest();
+                        richTextBox1.Invoke(new Action(() =>
+                        {
+                            richTextBox1.Text += "Clicked ";
+                            richTextBox1.Text += clickCounter.ToString();
+                            richTextBox1.Text += $" times in {secFromTextBox}s\n";
+                            richTextBox1.Text += "Clicks per second on average: \n";
+                            richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
+                            richTextBox1.Text += " cps\n";
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -214,6 +256,52 @@ namespace CClick
         private double ToClickPerSeconds(int totalClicks, long msElapsed)
         {
             return (double)totalClicks / (double)(msElapsed / 1000);
+        }
+
+        private void comboBox_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (comboBox.SelectedIndex == 5) // If selected item is "Custom"
+            {
+                typeCheckBox.Enabled = true;
+                typeCheckBox.Visible = true;
+                battleTypeCheckBox.Enabled = true;
+                battleTypeCheckBox.Visible = true;
+
+                typeTextBox.Visible = true;
+                typeTextBox.Enabled = true;
+                this.Size = new Size(750, this.Size.Height);
+            }
+        }
+
+        private void typeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (typeCheckBox.Checked)
+            {
+                typeTextBox.PlaceholderText = "Seconds before end";
+            }
+            else
+            {
+                typeTextBox.PlaceholderText = "Max clicks";
+            }
+        }
+
+        private void battleTypeCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            battleHealthTextBox.Enabled = !battleHealthTextBox.Enabled;
+            battleHealthTextBox.Visible = !battleHealthTextBox.Visible;
+            battleDamageTextBox.Enabled = !battleDamageTextBox.Enabled;
+            battleDamageTextBox.Visible = !battleDamageTextBox.Visible;
+            if (battleTypeCheckBox.Checked)
+            {
+                typeCheckBox.Checked = false;
+                typeCheckBox.Enabled = false;
+                typeTextBox.Enabled = false;
+            }
+            else
+            {
+                typeCheckBox.Enabled = true;
+                typeTextBox.Enabled = true;
+            }
         }
     }
 }
