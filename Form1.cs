@@ -21,6 +21,9 @@ namespace CClick
         private static Stopwatch watcher = new Stopwatch();
         private static System.Timers.Timer timer;
         private static string version = "1.0.6";
+        private static int battleModeHealth = 0;
+        private static int battleModeDamage = 0;
+        private static bool firstClickValuesCheck = false; // To-Do : Stop assign on each click vars (ex: k for Custom Mode)
 
         public Form1()
         {
@@ -119,21 +122,35 @@ namespace CClick
                         clickCounter++;
                         clickLabel.Text = clickCounter + " clicks";
                     }
-                    else if ((comboBox.SelectedIndex == 5) && (typeCheckBox.Checked)) // Test using time
+                    else if (comboBox.SelectedIndex == 5) // Test using time
                     {
-                        clickCounter++;
-                        clickLabel.Text = clickCounter + " clicks";
-                    }
-                    else if ((comboBox.SelectedIndex == 5) && (!typeCheckBox.Checked)) // (Custom) Click mode
-                    {
-                        int k = int.Parse(typeTextBox.Text);
-                        if (clickCounter < k)
+                        if (typeCheckBox.Checked)
                         {
                             clickCounter++;
-                            clickLabel.Text = k - clickCounter + " left";
-                            if (clickCounter == k)
+                            clickLabel.Text = clickCounter + " clicks";
+                        }
+                        else if ((!typeCheckBox.Checked) && (!battleTypeCheckBox.Checked))
+                        {
+                            int k = int.Parse(typeTextBox.Text);
+                            if (clickCounter < k)
                             {
-                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {k} clicks\n";
+                                clickCounter++;
+                                clickLabel.Text = k - clickCounter + " left";
+                                if (clickCounter == k)
+                                {
+                                    richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {k} clicks\n";
+                                    richTextBox1.ScrollToCaret();
+                                    MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
+                        }
+                        else if (battleTypeCheckBox.Checked)
+                        {
+                            battleModeHealth -= battleModeDamage;
+                            clickLabel.Text = battleModeHealth + "hp remaining";
+                            if (battleModeHealth <= 0)
+                            {
+                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do kill enemy with {battleHealthTextBox.Text}hp, you were doing {battleModeDamage} damage per click\n";
                                 richTextBox1.ScrollToCaret();
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
@@ -170,10 +187,28 @@ namespace CClick
             {
                 clickLabel.Text = 1000 - clickCounter + " left";
             }
-            else if ((comboBox.SelectedIndex == 5) && (!typeCheckBox.Checked)) // Custom with clicks mode
+            else if ((comboBox.SelectedIndex == 5) && (!typeCheckBox.Checked) && (!battleTypeCheckBox.Checked)) // Custom with clicks mode
             {
                 int k = int.Parse(typeTextBox.Text);
                 clickLabel.Text = k - clickCounter + " left";
+            }
+            else if ((comboBox.SelectedIndex == 5) && (battleTypeCheckBox.Checked))
+            {
+                if (!int.TryParse(battleHealthTextBox.Text, out battleModeHealth))
+                {
+                    EndTest();
+                    MessageBox.Show("The entered value is not correct for Health", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (!int.TryParse(battleDamageTextBox.Text, out battleModeDamage))
+                {
+                    EndTest();
+                    MessageBox.Show("The entered value is not correct for Damage", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                clickLabel.Text = $"{battleModeHealth}hp remaining";
             }
         }
 
