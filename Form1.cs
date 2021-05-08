@@ -20,10 +20,12 @@ namespace CClick
         private static int clickCounter = 0;
         private static Stopwatch watcher = new Stopwatch();
         private static System.Timers.Timer timer;
-        private static string version = "0.821";
+        private static string version = "0.830";
         private static int battleModeHealth = 0;
         private static int battleModeDamage = 0;
-        private static bool firstClickValuesCheck = false; // To-Do : Stop assign on each click vars (ex: k for Custom Mode)
+        private static int typeModeEnteredValue = 0;
+        private static bool firstClickValuesCheck = false;
+        private static System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
 
         public Form1()
         {
@@ -64,6 +66,11 @@ namespace CClick
 
         private void clickableButton_Click(object sender, EventArgs e)
         {
+            if (soundEffectCheckBox.Checked)
+            {
+                player.Play();
+            }
+
             if (!running)
             {
                 if (comboBox.SelectedIndex != -1)
@@ -131,14 +138,18 @@ namespace CClick
                         }
                         else if ((!typeCheckBox.Checked) && (!battleTypeCheckBox.Checked))
                         {
-                            int k = int.Parse(typeTextBox.Text);
-                            if (clickCounter < k)
+                            if (!firstClickValuesCheck)
+                            {
+                                typeModeEnteredValue = int.Parse(typeTextBox.Text);
+                            }
+
+                            if (clickCounter < typeModeEnteredValue)
                             {
                                 clickCounter++;
-                                clickLabel.Text = k - clickCounter + " left";
-                                if (clickCounter == k)
+                                clickLabel.Text = typeModeEnteredValue - clickCounter + " left";
+                                if (clickCounter == typeModeEnteredValue)
                                 {
-                                    richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {k} clicks\n";
+                                    richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {typeModeEnteredValue} clicks\n";
                                     richTextBox1.ScrollToCaret();
                                     MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
@@ -220,6 +231,7 @@ namespace CClick
             timer.Enabled = false;
             timer.Stop();
             timer.Dispose();
+            firstClickValuesCheck = false;
             return watcher.Elapsed;
         }
 
@@ -346,11 +358,13 @@ namespace CClick
                 typeCheckBox.Checked = false;
                 typeCheckBox.Enabled = false;
                 typeTextBox.Enabled = false;
+                typeTextBox.Visible = false;
             }
             else
             {
                 typeCheckBox.Enabled = true;
                 typeTextBox.Enabled = true;
+                typeTextBox.Visible = true;
             }
         }
     }

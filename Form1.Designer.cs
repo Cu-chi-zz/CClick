@@ -39,20 +39,22 @@ namespace CClick
             this.battleTypeCheckBox = new System.Windows.Forms.CheckBox();
             this.battleHealthTextBox = new System.Windows.Forms.TextBox();
             this.battleDamageTextBox = new System.Windows.Forms.TextBox();
+            this.soundEffectCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // clickableButton
             // 
-            this.clickableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(41)))), ((int)(((byte)(41)))));
-            this.clickableButton.FlatAppearance.BorderSize = 0;
-            this.clickableButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(5)))), ((int)(((byte)(5)))));
-            this.clickableButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
+            this.clickableButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.clickableButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.clickableButton.FlatAppearance.BorderSize = 5;
+            this.clickableButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(234)))), ((int)(((byte)(118)))), ((int)(((byte)(72)))));
+            this.clickableButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
             this.clickableButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.clickableButton.Font = new System.Drawing.Font("Reem Kufi", 42F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.clickableButton.ForeColor = System.Drawing.SystemColors.Window;
+            this.clickableButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.clickableButton.Location = new System.Drawing.Point(12, 194);
             this.clickableButton.Name = "clickableButton";
-            this.clickableButton.Size = new System.Drawing.Size(342, 244);
+            this.clickableButton.Size = new System.Drawing.Size(342, 232);
             this.clickableButton.TabIndex = 0;
             this.clickableButton.Text = "START";
             this.clickableButton.UseVisualStyleBackColor = false;
@@ -60,6 +62,8 @@ namespace CClick
             // 
             // comboBox
             // 
+            this.comboBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.comboBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
             this.comboBox.FormattingEnabled = true;
             this.comboBox.Items.AddRange(new object[] {
             "10 clicks",
@@ -76,9 +80,12 @@ namespace CClick
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.richTextBox1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.richTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
             this.richTextBox1.Location = new System.Drawing.Point(13, 43);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(341, 103);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
@@ -87,6 +94,7 @@ namespace CClick
             // 
             this.timeLabel.AutoSize = true;
             this.timeLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.timeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
             this.timeLabel.Location = new System.Drawing.Point(13, 157);
             this.timeLabel.Name = "timeLabel";
             this.timeLabel.Size = new System.Drawing.Size(0, 25);
@@ -96,6 +104,7 @@ namespace CClick
             // 
             this.clickLabel.AutoSize = true;
             this.clickLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.clickLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
             this.clickLabel.Location = new System.Drawing.Point(250, 157);
             this.clickLabel.Name = "clickLabel";
             this.clickLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -105,6 +114,7 @@ namespace CClick
             // 
             // typeTextBox
             // 
+            this.typeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.typeTextBox.Enabled = false;
             this.typeTextBox.Location = new System.Drawing.Point(360, 241);
             this.typeTextBox.Name = "typeTextBox";
@@ -116,13 +126,18 @@ namespace CClick
             // typeCheckBox
             // 
             this.typeCheckBox.AutoSize = true;
+            this.typeCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.typeCheckBox.Enabled = false;
-            this.typeCheckBox.Location = new System.Drawing.Point(361, 194);
+            this.typeCheckBox.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.typeCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.typeCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.typeCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.typeCheckBox.Location = new System.Drawing.Point(360, 194);
             this.typeCheckBox.Name = "typeCheckBox";
-            this.typeCheckBox.Size = new System.Drawing.Size(259, 19);
+            this.typeCheckBox.Size = new System.Drawing.Size(256, 19);
             this.typeCheckBox.TabIndex = 6;
             this.typeCheckBox.Text = "Type (check: with Timer, default: clicks limit)";
-            this.typeCheckBox.UseVisualStyleBackColor = true;
+            this.typeCheckBox.UseVisualStyleBackColor = false;
             this.typeCheckBox.Visible = false;
             this.typeCheckBox.CheckedChanged += new System.EventHandler(this.typeCheckBox_CheckedChanged);
             // 
@@ -130,9 +145,13 @@ namespace CClick
             // 
             this.battleTypeCheckBox.AutoSize = true;
             this.battleTypeCheckBox.Enabled = false;
+            this.battleTypeCheckBox.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.battleTypeCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.battleTypeCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.battleTypeCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.battleTypeCheckBox.Location = new System.Drawing.Point(360, 216);
             this.battleTypeCheckBox.Name = "battleTypeCheckBox";
-            this.battleTypeCheckBox.Size = new System.Drawing.Size(83, 19);
+            this.battleTypeCheckBox.Size = new System.Drawing.Size(80, 19);
             this.battleTypeCheckBox.TabIndex = 7;
             this.battleTypeCheckBox.Text = "Battle Type";
             this.battleTypeCheckBox.UseVisualStyleBackColor = true;
@@ -141,29 +160,48 @@ namespace CClick
             // 
             // battleHealthTextBox
             // 
+            this.battleHealthTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.battleHealthTextBox.Enabled = false;
-            this.battleHealthTextBox.Location = new System.Drawing.Point(360, 270);
+            this.battleHealthTextBox.Location = new System.Drawing.Point(360, 241);
             this.battleHealthTextBox.Name = "battleHealthTextBox";
-            this.battleHealthTextBox.PlaceholderText = "Health (Battle)";
+            this.battleHealthTextBox.PlaceholderText = "Health";
             this.battleHealthTextBox.Size = new System.Drawing.Size(112, 23);
             this.battleHealthTextBox.TabIndex = 8;
             this.battleHealthTextBox.Visible = false;
             // 
             // battleDamageTextBox
             // 
+            this.battleDamageTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.battleDamageTextBox.Enabled = false;
-            this.battleDamageTextBox.Location = new System.Drawing.Point(360, 299);
+            this.battleDamageTextBox.Location = new System.Drawing.Point(360, 270);
             this.battleDamageTextBox.Name = "battleDamageTextBox";
-            this.battleDamageTextBox.PlaceholderText = "Damage (Battle)";
+            this.battleDamageTextBox.PlaceholderText = "Damage";
             this.battleDamageTextBox.Size = new System.Drawing.Size(112, 23);
             this.battleDamageTextBox.TabIndex = 9;
             this.battleDamageTextBox.Visible = false;
+            // 
+            // soundEffectCheckBox
+            // 
+            this.soundEffectCheckBox.AutoSize = true;
+            this.soundEffectCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
+            this.soundEffectCheckBox.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.soundEffectCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.soundEffectCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.soundEffectCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.soundEffectCheckBox.Location = new System.Drawing.Point(13, 431);
+            this.soundEffectCheckBox.Name = "soundEffectCheckBox";
+            this.soundEffectCheckBox.Size = new System.Drawing.Size(171, 19);
+            this.soundEffectCheckBox.TabIndex = 10;
+            this.soundEffectCheckBox.Text = "Enable sound effect on click";
+            this.soundEffectCheckBox.UseVisualStyleBackColor = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(364, 451);
+            this.Controls.Add(this.soundEffectCheckBox);
             this.Controls.Add(this.battleDamageTextBox);
             this.Controls.Add(this.battleHealthTextBox);
             this.Controls.Add(this.battleTypeCheckBox);
@@ -197,6 +235,7 @@ namespace CClick
         private System.Windows.Forms.CheckBox battleTypeCheckBox;
         private System.Windows.Forms.TextBox battleHealthTextBox;
         private System.Windows.Forms.TextBox battleDamageTextBox;
+        private System.Windows.Forms.CheckBox soundEffectCheckBox;
     }
 }
 
