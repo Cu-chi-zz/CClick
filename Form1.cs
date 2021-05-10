@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,6 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Timers;
 using Octokit;
-using System.Runtime.InteropServices;
 
 namespace CClick
 {
@@ -26,6 +24,8 @@ namespace CClick
         private static int typeModeEnteredValue = 0;
         private static bool firstClickValuesCheck = false;
         private static System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
+        private Json jData = new Json();
+        private Data userData = new Data();
 
         public Form1()
         {
@@ -34,6 +34,30 @@ namespace CClick
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            // JSON Data part
+            if (!System.IO.File.Exists("data\\data.json"))
+            {
+                Data json = new Data
+                {
+                    EnableSound = false
+                };
+
+                System.IO.Directory.CreateDirectory("data");
+
+                if (!jData.WriteData(json, "data\\data.json"))
+                {
+                    MessageBox.Show("An error occured: Json file can't be created.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                userData = jData.ReadData("data\\data.json");
+                if (userData == null)
+                {
+                    MessageBox.Show("An error occured: Json file is not working.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
             try
             {
                 var client = new GitHubClient(new ProductHeaderValue("CClick"));
