@@ -10,6 +10,12 @@ namespace CClick
 {
     internal class Json
     {
+        /// <summary>
+        /// Write in the json file specified
+        /// </summary>
+        /// <param name="j">Json data type</param>
+        /// <param name="p">Json file path</param>
+        /// <returns>True if the file is successfully created</returns>
         public bool WriteData(Data j, string p)
         {
             try
@@ -23,6 +29,11 @@ namespace CClick
             }
         }
 
+        /// <summary>
+        /// Read and return readed json data
+        /// </summary>
+        /// <param name="p">Path to json file to read</param>
+        /// <returns>Json data readed</returns>
         public Data ReadData(string p)
         {
             Data d;
@@ -42,5 +53,6 @@ namespace CClick
     public class Data
     {
         public bool EnableSound { get; set; }
+        public int DefaultTest { get; set; }
     }
 }

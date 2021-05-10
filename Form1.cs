@@ -39,7 +39,8 @@ namespace CClick
             {
                 Data json = new Data
                 {
-                    EnableSound = false
+                    EnableSound = false,
+                    DefaultTest = -1
                 };
 
                 System.IO.Directory.CreateDirectory("data");
@@ -47,6 +48,8 @@ namespace CClick
                 if (!jData.WriteData(json, "data\\data.json"))
                 {
                     MessageBox.Show("An error occured: Json file can't be created.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
                 }
             }
             else
@@ -55,7 +58,15 @@ namespace CClick
                 if (userData == null)
                 {
                     MessageBox.Show("An error occured: Json file is not working.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
                 }
+
+                if (userData.EnableSound)
+                    soundEffectCheckBox.CheckState = CheckState.Checked;
+
+                if (userData.DefaultTest != -1)
+                    comboBox.SelectedIndex = userData.DefaultTest;
             }
 
             try
@@ -92,7 +103,15 @@ namespace CClick
         {
             if (soundEffectCheckBox.Checked)
             {
-                player.Play();
+                try
+                {
+                    player.Play();
+                }
+                catch (System.IO.FileNotFoundException)
+                {
+                    MessageBox.Show($"FileNotFoundException: Can't find audio file.\nUnchecked sound effect to prevent errors.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    soundEffectCheckBox.CheckState = CheckState.Unchecked;
+                }
             }
 
             if (!running)
@@ -344,9 +363,9 @@ namespace CClick
             }
             else
             {
-                if (Size != new Size(380, 490))
+                if (Size != new Size(420, 490))
                 {
-                    Size = new Size(380, 490);
+                    Size = new Size(420, 490);
 
                     typeCheckBox.Enabled = false;
                     typeCheckBox.Visible = false;
@@ -389,6 +408,31 @@ namespace CClick
                 typeCheckBox.Enabled = true;
                 typeTextBox.Enabled = true;
                 typeTextBox.Visible = true;
+            }
+        }
+
+        private void soundEffectCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Data dateToWrite = new Data
+            {
+                EnableSound = soundEffectCheckBox.Checked,
+                DefaultTest = userData.DefaultTest
+            };
+
+            jData.WriteData(dateToWrite, "data//data.json");
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            Data dateToWrite = new Data
+            {
+                EnableSound = userData.EnableSound,
+                DefaultTest = comboBox.SelectedIndex
+            };
+
+            if (!jData.WriteData(dateToWrite, "data//data.json"))
+            {
+                MessageBox.Show("An error occured: Can't write json data.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
