@@ -42,6 +42,8 @@ namespace CClick
             this.battleDamageTextBox = new System.Windows.Forms.TextBox();
             this.soundEffectCheckBox = new System.Windows.Forms.CheckBox();
             this.saveButton = new System.Windows.Forms.Button();
+            this.customConfigSaveButton = new System.Windows.Forms.Button();
+            this.applyConfigButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // clickableButton
@@ -214,12 +216,48 @@ namespace CClick
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
+            // customConfigSaveButton
+            // 
+            this.customConfigSaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.customConfigSaveButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.customConfigSaveButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.customConfigSaveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
+            this.customConfigSaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customConfigSaveButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.customConfigSaveButton.Location = new System.Drawing.Point(401, 304);
+            this.customConfigSaveButton.Name = "customConfigSaveButton";
+            this.customConfigSaveButton.Size = new System.Drawing.Size(124, 29);
+            this.customConfigSaveButton.TabIndex = 12;
+            this.customConfigSaveButton.Text = "Save config";
+            this.customConfigSaveButton.UseVisualStyleBackColor = false;
+            this.customConfigSaveButton.Visible = false;
+            this.customConfigSaveButton.Click += new System.EventHandler(this.customConfigSaveButton_Click);
+            // 
+            // applyConfigButton
+            // 
+            this.applyConfigButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.applyConfigButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.applyConfigButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.applyConfigButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
+            this.applyConfigButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.applyConfigButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.applyConfigButton.Location = new System.Drawing.Point(401, 339);
+            this.applyConfigButton.Name = "applyConfigButton";
+            this.applyConfigButton.Size = new System.Drawing.Size(124, 29);
+            this.applyConfigButton.TabIndex = 13;
+            this.applyConfigButton.Text = "Apply config";
+            this.applyConfigButton.UseVisualStyleBackColor = false;
+            this.applyConfigButton.Visible = false;
+            this.applyConfigButton.Click += new System.EventHandler(this.applyConfigButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(404, 451);
+            this.Controls.Add(this.applyConfigButton);
+            this.Controls.Add(this.customConfigSaveButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.soundEffectCheckBox);
             this.Controls.Add(this.battleDamageTextBox);
@@ -259,6 +297,8 @@ namespace CClick
         private System.Windows.Forms.TextBox battleDamageTextBox;
         private System.Windows.Forms.CheckBox soundEffectCheckBox;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Button customConfigSaveButton;
+        private System.Windows.Forms.Button applyConfigButton;
     }
 }
 

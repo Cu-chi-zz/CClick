@@ -18,7 +18,7 @@ namespace CClick
         private static int clickCounter = 0;
         private static Stopwatch watcher = new Stopwatch();
         private static System.Timers.Timer timer;
-        private static string version = "0.831";
+        private static string version = "0.9";
         private static int battleModeHealth = 0;
         private static int battleModeDamage = 0;
         private static int typeModeEnteredValue = 0;
@@ -40,7 +40,8 @@ namespace CClick
                 Data json = new Data
                 {
                     EnableSound = false,
-                    DefaultTest = -1
+                    DefaultTest = -1,
+                    CustomConfig = null
                 };
 
                 System.IO.Directory.CreateDirectory("data");
@@ -67,6 +68,25 @@ namespace CClick
 
                 if (userData.DefaultTest != -1)
                     comboBox.SelectedIndex = userData.DefaultTest;
+
+                if (comboBox.SelectedIndex == 5) // If selected test is custom
+                {
+                    if (userData.CustomConfig[0] == "click")
+                        typeCheckBox.CheckState = CheckState.Unchecked;
+                    else
+                        typeCheckBox.CheckState = CheckState.Checked;
+
+                    if (userData.CustomConfig[1] == "battle")
+                        battleTypeCheckBox.CheckState = CheckState.Checked;
+                    else
+                        typeCheckBox.CheckState = CheckState.Unchecked;
+
+                    typeTextBox.Text = userData.CustomConfig[2];
+                    battleHealthTextBox.Text = userData.CustomConfig[3];
+                    battleDamageTextBox.Text = userData.CustomConfig[4];
+
+                    CustomTestDisplay(true); // Display customization panel
+                }
             }
 
             try
@@ -352,14 +372,28 @@ namespace CClick
         {
             if (comboBox.SelectedIndex == 5) // If selected item is "Custom"
             {
+                CustomTestDisplay(true);
+            }
+            else
+            {
+                CustomTestDisplay(false);
+            }
+        }
+
+        private void CustomTestDisplay(bool display)
+        {
+            if (display)
+            {
                 typeCheckBox.Enabled = true;
                 typeCheckBox.Visible = true;
                 battleTypeCheckBox.Enabled = true;
                 battleTypeCheckBox.Visible = true;
+                customConfigSaveButton.Visible = true;
+                applyConfigButton.Visible = true;
 
                 typeTextBox.Visible = true;
                 typeTextBox.Enabled = true;
-                Size = new Size(630, this.Size.Height);
+                Size = new Size(675, this.Size.Height);
             }
             else
             {
@@ -371,6 +405,8 @@ namespace CClick
                     typeCheckBox.Visible = false;
                     battleTypeCheckBox.Enabled = false;
                     battleTypeCheckBox.Visible = false;
+                    customConfigSaveButton.Visible = false;
+                    applyConfigButton.Visible = false;
 
                     typeTextBox.Visible = false;
                     typeTextBox.Enabled = false;
@@ -396,6 +432,7 @@ namespace CClick
             battleHealthTextBox.Visible = !battleHealthTextBox.Visible;
             battleDamageTextBox.Enabled = !battleDamageTextBox.Enabled;
             battleDamageTextBox.Visible = !battleDamageTextBox.Visible;
+
             if (battleTypeCheckBox.Checked)
             {
                 typeCheckBox.Checked = false;
@@ -416,10 +453,13 @@ namespace CClick
             Data dateToWrite = new Data
             {
                 EnableSound = soundEffectCheckBox.Checked,
-                DefaultTest = userData.DefaultTest
+                DefaultTest = userData.DefaultTest,
+                CustomConfig = userData.CustomConfig
             };
 
             jData.WriteData(dateToWrite, "data//data.json");
+
+            updateLocalData();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -427,13 +467,65 @@ namespace CClick
             Data dateToWrite = new Data
             {
                 EnableSound = userData.EnableSound,
-                DefaultTest = comboBox.SelectedIndex
+                DefaultTest = comboBox.SelectedIndex,
+                CustomConfig = userData.CustomConfig
             };
 
             if (!jData.WriteData(dateToWrite, "data//data.json"))
             {
                 MessageBox.Show("An error occured: Can't write json data.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            updateLocalData();
+        }
+
+        private void customConfigSaveButton_Click(object sender, EventArgs e)
+        {
+            string[] config = {
+                $"{((!typeCheckBox.Checked && !battleTypeCheckBox.Checked) ? "click" : "timer")}",
+                $"{(battleTypeCheckBox.Checked ? "battle" : "none")}",
+                $"{typeTextBox.Text}",
+                $"{battleHealthTextBox.Text}",
+                $"{battleDamageTextBox.Text}"
+            };
+
+            Data dateToWrite = new Data
+            {
+                EnableSound = userData.EnableSound,
+                DefaultTest = userData.DefaultTest,
+                CustomConfig = config
+            };
+
+            if (!jData.WriteData(dateToWrite, "data//data.json"))
+            {
+                MessageBox.Show("An error occured: Can't write json data.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            updateLocalData();
+        }
+
+        private void updateLocalData()
+        {
+            userData = jData.ReadData("data\\data.json");
+            if (userData == null)
+                MessageBox.Show("An error occured: Json file is not working.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void applyConfigButton_Click(object sender, EventArgs e)
+        {
+            if (userData.CustomConfig[1] == "battle")
+                battleTypeCheckBox.CheckState = CheckState.Checked;
+            else
+                typeCheckBox.CheckState = CheckState.Unchecked;
+
+            if (userData.CustomConfig[0] == "click")
+                typeCheckBox.CheckState = CheckState.Unchecked;
+            else if (!battleTypeCheckBox.Checked)
+                typeCheckBox.CheckState = CheckState.Checked;
+
+            typeTextBox.Text = userData.CustomConfig[2];
+            battleHealthTextBox.Text = userData.CustomConfig[3];
+            battleDamageTextBox.Text = userData.CustomConfig[4];
         }
     }
 }

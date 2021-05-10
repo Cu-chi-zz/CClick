@@ -54,5 +54,6 @@ namespace CClick
     {
         public bool EnableSound { get; set; }
         public int DefaultTest { get; set; }
+        public string[] CustomConfig { get; set; }
     }
 }
