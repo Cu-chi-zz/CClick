@@ -48,6 +48,45 @@ namespace CClick
                 return null;
             }
         }
+
+        /// <summary>
+        /// Write in the json file specified
+        /// </summary>
+        /// <param name="j">Json data type</param>
+        /// <param name="p">Json file path</param>
+        /// <returns>True if the file is successfully created</returns>
+        public bool WriteStatsData(StatsData j, string p)
+        {
+            try
+            {
+                System.IO.File.WriteAllText(p, JsonConvert.SerializeObject(j, Formatting.Indented));
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Read and return readed json data
+        /// </summary>
+        /// <param name="p">Path to json file to read</param>
+        /// <returns>Json data readed</returns>
+        public StatsData ReadStatsData(string p)
+        {
+            StatsData d;
+            string jString = System.IO.File.ReadAllText(p);
+            try
+            {
+                d = JsonConvert.DeserializeObject<StatsData>(jString);
+                return d;
+            }
+            catch
+            {
+                return null;
+            }
+        }
     }
 
     public class Data
