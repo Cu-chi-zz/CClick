@@ -12,7 +12,7 @@ using Octokit;
 
 namespace CClick
 {
-    public partial class Form1 : Form
+    public partial class CClick : Form
     {
         private static bool running = false;
         private static int clickCounter = 0;
@@ -27,7 +27,7 @@ namespace CClick
         private Json jData = new Json();
         private Data userData = new Data();
 
-        public Form1()
+        public CClick()
         {
             InitializeComponent();
         }
@@ -71,19 +71,22 @@ namespace CClick
 
                 if (comboBox.SelectedIndex == 5) // If selected test is custom
                 {
-                    if (userData.CustomConfig[0] == "click")
-                        typeCheckBox.CheckState = CheckState.Unchecked;
-                    else
-                        typeCheckBox.CheckState = CheckState.Checked;
+                    if (userData.CustomConfig != null)
+                    {
+                        if (userData.CustomConfig[0] == "click")
+                            typeCheckBox.CheckState = CheckState.Unchecked;
+                        else
+                            typeCheckBox.CheckState = CheckState.Checked;
 
-                    if (userData.CustomConfig[1] == "battle")
-                        battleTypeCheckBox.CheckState = CheckState.Checked;
-                    else
-                        typeCheckBox.CheckState = CheckState.Unchecked;
+                        if (userData.CustomConfig[1] == "battle")
+                            battleTypeCheckBox.CheckState = CheckState.Checked;
+                        else
+                            typeCheckBox.CheckState = CheckState.Unchecked;
 
-                    typeTextBox.Text = userData.CustomConfig[2];
-                    battleHealthTextBox.Text = userData.CustomConfig[3];
-                    battleDamageTextBox.Text = userData.CustomConfig[4];
+                        typeTextBox.Text = userData.CustomConfig[2];
+                        battleHealthTextBox.Text = userData.CustomConfig[3];
+                        battleDamageTextBox.Text = userData.CustomConfig[4];
+                    }
 
                     CustomTestDisplay(true); // Display customization panel
                 }
@@ -513,19 +516,26 @@ namespace CClick
 
         private void applyConfigButton_Click(object sender, EventArgs e)
         {
-            if (userData.CustomConfig[1] == "battle")
-                battleTypeCheckBox.CheckState = CheckState.Checked;
+            if (userData.CustomConfig != null)
+            {
+                if (userData.CustomConfig[1] == "battle")
+                    battleTypeCheckBox.CheckState = CheckState.Checked;
+                else
+                    typeCheckBox.CheckState = CheckState.Unchecked;
+
+                if (userData.CustomConfig[0] == "click")
+                    typeCheckBox.CheckState = CheckState.Unchecked;
+                else if (!battleTypeCheckBox.Checked)
+                    typeCheckBox.CheckState = CheckState.Checked;
+
+                typeTextBox.Text = userData.CustomConfig[2];
+                battleHealthTextBox.Text = userData.CustomConfig[3];
+                battleDamageTextBox.Text = userData.CustomConfig[4];
+            }
             else
-                typeCheckBox.CheckState = CheckState.Unchecked;
-
-            if (userData.CustomConfig[0] == "click")
-                typeCheckBox.CheckState = CheckState.Unchecked;
-            else if (!battleTypeCheckBox.Checked)
-                typeCheckBox.CheckState = CheckState.Checked;
-
-            typeTextBox.Text = userData.CustomConfig[2];
-            battleHealthTextBox.Text = userData.CustomConfig[3];
-            battleDamageTextBox.Text = userData.CustomConfig[4];
+            {
+                MessageBox.Show("Operation cancelled: Can't apply a null configuration.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
