@@ -26,6 +26,7 @@ namespace CClick
         private static System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
         private Json jData = new Json();
         private Data userData = new Data();
+        private Stats stats = new Stats();
         private StatsData userStatsData = new StatsData();
 
         public CClick()
