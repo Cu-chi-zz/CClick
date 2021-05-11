@@ -1,7 +1,7 @@
 ﻿
 namespace CClick
 {
-    partial class Form1
+    partial class CClick
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@ namespace CClick
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CClick));
             this.clickableButton = new System.Windows.Forms.Button();
             this.comboBox = new System.Windows.Forms.ComboBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
