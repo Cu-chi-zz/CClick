@@ -26,6 +26,7 @@ namespace CClick
         private static System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
         private Json jData = new Json();
         private Data userData = new Data();
+        private StatsData userStatsData = new StatsData();
 
         public CClick()
         {
@@ -89,6 +90,34 @@ namespace CClick
                     }
 
                     CustomTestDisplay(true); // Display customization panel
+                }
+            }
+
+            if (!System.IO.File.Exists("data\\stats.json"))
+            {
+                StatsData json = new StatsData
+                {
+                    ClicksAverage = 0,
+                    TotalClicks = 0,
+                    TotalMsElapsedOnTest = 0,
+                    TotalTests = 0
+                };
+
+                if (!jData.WriteStatsData(json, "data\\stats.json"))
+                {
+                    MessageBox.Show("An error occured: Json file can't be created.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
+                }
+            }
+            else
+            {
+                userStatsData = jData.ReadStatsData("data\\stats.json");
+                if (userStatsData == null)
+                {
+                    MessageBox.Show("An error occured: Json file (stats) is not working.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Close();
+                    return;
                 }
             }
 
@@ -298,6 +327,17 @@ namespace CClick
             timer.Stop();
             timer.Dispose();
             firstClickValuesCheck = false;
+
+            StatsData newStatsData = new StatsData
+            {
+                ClicksAverage = (userStatsData.TotalClicks + clickCounter) / (userStatsData.TotalTests + 1.0), // If 1, that's automatically round the double value
+                TotalClicks = userStatsData.TotalClicks + clickCounter,
+                TotalMsElapsedOnTest = userStatsData.TotalMsElapsedOnTest + watcher.Elapsed.TotalMilliseconds,
+                TotalTests = userStatsData.TotalTests + 1
+            };
+            jData.WriteStatsData(newStatsData, "data\\stats.json");
+            updateLocalStatsData();
+
             return watcher.Elapsed;
         }
 
@@ -512,6 +552,13 @@ namespace CClick
             userData = jData.ReadData("data\\data.json");
             if (userData == null)
                 MessageBox.Show("An error occured: Json file is not working.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void updateLocalStatsData()
+        {
+            userStatsData = jData.ReadStatsData("data\\stats.json");
+            if (userStatsData == null)
+                MessageBox.Show("An error occured: Json file (stats) is not working.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void applyConfigButton_Click(object sender, EventArgs e)
