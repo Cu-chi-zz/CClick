@@ -18,7 +18,7 @@ namespace CClick
         private static int clickCounter = 0;
         private static Stopwatch watcher = new Stopwatch();
         private static System.Timers.Timer timer;
-        private static string version = "0.9";
+        private static string version = "0.921";
         private static int battleModeHealth = 0;
         private static int battleModeDamage = 0;
         private static int typeModeEnteredValue = 0;
