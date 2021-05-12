@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CClick", "CClick.csproj", "{F1EA1DA9-1705-404F-96F6-16DC97A3219A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CClick", "CClick.csproj", "{F1EA1DA9-1705-404F-96F6-16DC97A3219A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code", "Code", "{AE5344D9-92CA-4A92-86FE-E6A2C65464FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1EA1DA9-1705-404F-96F6-16DC97A3219A} = {AE5344D9-92CA-4A92-86FE-E6A2C65464FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9821253F-FF2F-479D-8AFB-385DB5FCB39E}
