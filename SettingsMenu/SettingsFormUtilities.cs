@@ -9,6 +9,17 @@ namespace CClick.SettingsMenu
 {
     internal class SettingsFormUtilities
     {
-        // To-Do
+        public bool InitializeSettingsFormParameters(SettingsForm f, bool p)
+        {
+            try
+            {
+                f.soundEffectCheckBox.Checked = p;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

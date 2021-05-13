@@ -15,16 +15,16 @@ namespace CClick
 {
     public partial class CClick : Form
     {
-        private static bool running = false;
-        private static int clickCounter = 0;
-        private static Stopwatch watcher = new Stopwatch();
-        private static System.Timers.Timer timer;
-        private static readonly string version = "0.921";
-        private static int battleModeHealth = 0;
-        private static int battleModeDamage = 0;
-        private static int typeModeEnteredValue = 0;
-        private static bool firstClickValuesCheck = false;
-        private static System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
+        private bool running = false;
+        private int clickCounter = 0;
+        private Stopwatch watcher = new Stopwatch();
+        private System.Timers.Timer timer;
+        private readonly string version = "0.921";
+        private int battleModeHealth = 0;
+        private int battleModeDamage = 0;
+        private int typeModeEnteredValue = 0;
+        private bool firstClickValuesCheck = false;
+        private System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
         private Json jData = new Json();
         private Data userData = new Data();
         private StatsData userStatsData = new StatsData();
@@ -37,6 +37,8 @@ namespace CClick
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            settingsForm.soundEffectCheckBox.CheckedChanged += new EventHandler(SoundEffectCheckedChanged);
+
             // JSON Data part
             if (!System.IO.File.Exists("data\\data.json"))
             {
@@ -67,7 +69,7 @@ namespace CClick
                 }
 
                 if (userData.EnableSound)
-                    soundEffectCheckBox.CheckState = CheckState.Checked;
+                    settingsForm.soundEffectCheckBox.CheckState = CheckState.Checked;
 
                 if (userData.DefaultTest != -1)
                     comboBox.SelectedIndex = userData.DefaultTest;
@@ -155,7 +157,7 @@ namespace CClick
 
         private void clickableButton_Click(object sender, EventArgs e)
         {
-            if (soundEffectCheckBox.Checked)
+            if (settingsForm.soundEffectCheckBox.Checked)
             {
                 try
                 {
@@ -164,7 +166,7 @@ namespace CClick
                 catch (System.IO.FileNotFoundException)
                 {
                     MessageBox.Show($"FileNotFoundException: Can't find audio file.\nUnchecked sound effect to prevent errors.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    soundEffectCheckBox.CheckState = CheckState.Unchecked;
+                    settingsForm.soundEffectCheckBox.CheckState = CheckState.Unchecked;
                 }
             }
 
@@ -434,10 +436,6 @@ namespace CClick
                 typeCheckBox.Visible = true;
                 battleTypeCheckBox.Enabled = true;
                 battleTypeCheckBox.Visible = true;
-                battleHealthTextBox.Enabled = true;
-                battleHealthTextBox.Visible = true;
-                battleDamageTextBox.Enabled = true;
-                battleDamageTextBox.Visible = true;
                 customConfigSaveButton.Visible = true;
                 applyConfigButton.Visible = true;
 
@@ -497,11 +495,11 @@ namespace CClick
             }
         }
 
-        private void soundEffectCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void SoundEffectCheckedChanged(object sender, EventArgs e)
         {
             Data dateToWrite = new Data
             {
-                EnableSound = soundEffectCheckBox.Checked,
+                EnableSound = settingsForm.soundEffectCheckBox.Checked,
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig
             };
@@ -593,8 +591,12 @@ namespace CClick
 
         private void settingsIcon_Click(object sender, EventArgs e)
         {
+            SettingsFormUtilities settingsFormUtilities = new SettingsFormUtilities();
             if (!settingsForm.Visible)
-                settingsForm.Show();
+            {
+                settingsFormUtilities.InitializeSettingsFormParameters(settingsForm, userData.EnableSound);
+                settingsForm.ShowDialog();
+            }
             else
                 settingsForm.Hide();
         }
