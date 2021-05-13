@@ -44,6 +44,7 @@ namespace CClick
             this.saveButton = new System.Windows.Forms.Button();
             this.customConfigSaveButton = new System.Windows.Forms.Button();
             this.applyConfigButton = new System.Windows.Forms.Button();
+            this.settingsIcon = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // clickableButton
@@ -56,9 +57,9 @@ namespace CClick
             this.clickableButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.clickableButton.Font = new System.Drawing.Font("Reem Kufi", 42F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.clickableButton.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            this.clickableButton.Location = new System.Drawing.Point(12, 185);
+            this.clickableButton.Location = new System.Drawing.Point(12, 207);
             this.clickableButton.Name = "clickableButton";
-            this.clickableButton.Size = new System.Drawing.Size(380, 232);
+            this.clickableButton.Size = new System.Drawing.Size(634, 232);
             this.clickableButton.TabIndex = 0;
             this.clickableButton.Text = "START";
             this.clickableButton.UseVisualStyleBackColor = false;
@@ -76,9 +77,9 @@ namespace CClick
             "10 seconds",
             "1 second",
             "Custom"});
-            this.comboBox.Location = new System.Drawing.Point(13, 13);
+            this.comboBox.Location = new System.Drawing.Point(12, 26);
             this.comboBox.Name = "comboBox";
-            this.comboBox.Size = new System.Drawing.Size(379, 23);
+            this.comboBox.Size = new System.Drawing.Size(634, 23);
             this.comboBox.TabIndex = 1;
             this.comboBox.SelectionChangeCommitted += new System.EventHandler(this.comboBox_SelectionChangeCommitted);
             // 
@@ -87,10 +88,10 @@ namespace CClick
             this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.richTextBox1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.richTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
-            this.richTextBox1.Location = new System.Drawing.Point(13, 43);
+            this.richTextBox1.Location = new System.Drawing.Point(12, 60);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(379, 103);
+            this.richTextBox1.Size = new System.Drawing.Size(634, 103);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
             // 
@@ -99,7 +100,7 @@ namespace CClick
             this.timeLabel.AutoSize = true;
             this.timeLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.timeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
-            this.timeLabel.Location = new System.Drawing.Point(13, 157);
+            this.timeLabel.Location = new System.Drawing.Point(14, 171);
             this.timeLabel.Name = "timeLabel";
             this.timeLabel.Size = new System.Drawing.Size(0, 25);
             this.timeLabel.TabIndex = 3;
@@ -109,18 +110,16 @@ namespace CClick
             this.clickLabel.AutoSize = true;
             this.clickLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.clickLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
-            this.clickLabel.Location = new System.Drawing.Point(250, 157);
+            this.clickLabel.Location = new System.Drawing.Point(405, 171);
             this.clickLabel.Name = "clickLabel";
-            this.clickLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.clickLabel.Size = new System.Drawing.Size(0, 25);
             this.clickLabel.TabIndex = 3;
-            this.clickLabel.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
             // typeTextBox
             // 
             this.typeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.typeTextBox.Enabled = false;
-            this.typeTextBox.Location = new System.Drawing.Point(401, 243);
+            this.typeTextBox.Location = new System.Drawing.Point(401, 258);
             this.typeTextBox.Name = "typeTextBox";
             this.typeTextBox.PlaceholderText = "Max clicks";
             this.typeTextBox.Size = new System.Drawing.Size(112, 23);
@@ -136,7 +135,7 @@ namespace CClick
             this.typeCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
             this.typeCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.typeCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            this.typeCheckBox.Location = new System.Drawing.Point(401, 196);
+            this.typeCheckBox.Location = new System.Drawing.Point(401, 210);
             this.typeCheckBox.Name = "typeCheckBox";
             this.typeCheckBox.Size = new System.Drawing.Size(256, 19);
             this.typeCheckBox.TabIndex = 6;
@@ -153,7 +152,7 @@ namespace CClick
             this.battleTypeCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
             this.battleTypeCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.battleTypeCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            this.battleTypeCheckBox.Location = new System.Drawing.Point(401, 218);
+            this.battleTypeCheckBox.Location = new System.Drawing.Point(401, 232);
             this.battleTypeCheckBox.Name = "battleTypeCheckBox";
             this.battleTypeCheckBox.Size = new System.Drawing.Size(80, 19);
             this.battleTypeCheckBox.TabIndex = 7;
@@ -166,7 +165,7 @@ namespace CClick
             // 
             this.battleHealthTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.battleHealthTextBox.Enabled = false;
-            this.battleHealthTextBox.Location = new System.Drawing.Point(401, 243);
+            this.battleHealthTextBox.Location = new System.Drawing.Point(401, 258);
             this.battleHealthTextBox.Name = "battleHealthTextBox";
             this.battleHealthTextBox.PlaceholderText = "Health";
             this.battleHealthTextBox.Size = new System.Drawing.Size(112, 23);
@@ -177,7 +176,7 @@ namespace CClick
             // 
             this.battleDamageTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
             this.battleDamageTextBox.Enabled = false;
-            this.battleDamageTextBox.Location = new System.Drawing.Point(401, 272);
+            this.battleDamageTextBox.Location = new System.Drawing.Point(401, 287);
             this.battleDamageTextBox.Name = "battleDamageTextBox";
             this.battleDamageTextBox.PlaceholderText = "Damage";
             this.battleDamageTextBox.Size = new System.Drawing.Size(112, 23);
@@ -192,7 +191,7 @@ namespace CClick
             this.soundEffectCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
             this.soundEffectCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.soundEffectCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            this.soundEffectCheckBox.Location = new System.Drawing.Point(13, 431);
+            this.soundEffectCheckBox.Location = new System.Drawing.Point(13, 3);
             this.soundEffectCheckBox.Name = "soundEffectCheckBox";
             this.soundEffectCheckBox.Size = new System.Drawing.Size(171, 19);
             this.soundEffectCheckBox.TabIndex = 10;
@@ -208,7 +207,7 @@ namespace CClick
             this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.saveButton.Location = new System.Drawing.Point(228, 423);
+            this.saveButton.Location = new System.Drawing.Point(401, 412);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(164, 27);
             this.saveButton.TabIndex = 11;
@@ -224,7 +223,7 @@ namespace CClick
             this.customConfigSaveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
             this.customConfigSaveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.customConfigSaveButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.customConfigSaveButton.Location = new System.Drawing.Point(401, 304);
+            this.customConfigSaveButton.Location = new System.Drawing.Point(401, 316);
             this.customConfigSaveButton.Name = "customConfigSaveButton";
             this.customConfigSaveButton.Size = new System.Drawing.Size(124, 29);
             this.customConfigSaveButton.TabIndex = 12;
@@ -241,7 +240,7 @@ namespace CClick
             this.applyConfigButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
             this.applyConfigButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.applyConfigButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.applyConfigButton.Location = new System.Drawing.Point(401, 339);
+            this.applyConfigButton.Location = new System.Drawing.Point(401, 351);
             this.applyConfigButton.Name = "applyConfigButton";
             this.applyConfigButton.Size = new System.Drawing.Size(124, 29);
             this.applyConfigButton.TabIndex = 13;
@@ -250,12 +249,23 @@ namespace CClick
             this.applyConfigButton.Visible = false;
             this.applyConfigButton.Click += new System.EventHandler(this.applyConfigButton_Click);
             // 
-            // Form1
+            // settingsIcon
+            // 
+            this.settingsIcon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("settingsIcon.BackgroundImage")));
+            this.settingsIcon.Location = new System.Drawing.Point(629, 6);
+            this.settingsIcon.Name = "settingsIcon";
+            this.settingsIcon.Size = new System.Drawing.Size(16, 16);
+            this.settingsIcon.TabIndex = 14;
+            this.settingsIcon.Click += new System.EventHandler(this.settingsIcon_Click);
+            // 
+            // CClick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
-            this.ClientSize = new System.Drawing.Size(404, 451);
+            this.ClientSize = new System.Drawing.Size(659, 451);
+            this.Controls.Add(this.settingsIcon);
+            this.Controls.Add(this.clickLabel);
             this.Controls.Add(this.applyConfigButton);
             this.Controls.Add(this.customConfigSaveButton);
             this.Controls.Add(this.saveButton);
@@ -266,14 +276,13 @@ namespace CClick
             this.Controls.Add(this.typeCheckBox);
             this.Controls.Add(this.typeTextBox);
             this.Controls.Add(this.timeLabel);
-            this.Controls.Add(this.clickLabel);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.comboBox);
             this.Controls.Add(this.clickableButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "CClick";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Tag = "";
             this.Text = "CClicker";
@@ -299,6 +308,7 @@ namespace CClick
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button customConfigSaveButton;
         private System.Windows.Forms.Button applyConfigButton;
+        private System.Windows.Forms.Panel settingsIcon;
     }
 }
 

@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CClick.SettingsMenu
 {
-    internal class SettingsForm
+    public partial class SettingsForm : Form
     {
-        // To-Do
+        public SettingsForm()
+        {
+            InitializeComponent();
+        }
     }
 }

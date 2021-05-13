@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Timers;
 using Octokit;
+using CClick.SettingsMenu;
 
 namespace CClick
 {
@@ -18,7 +19,7 @@ namespace CClick
         private static int clickCounter = 0;
         private static Stopwatch watcher = new Stopwatch();
         private static System.Timers.Timer timer;
-        private static string version = "0.921";
+        private static readonly string version = "0.921";
         private static int battleModeHealth = 0;
         private static int battleModeDamage = 0;
         private static int typeModeEnteredValue = 0;
@@ -27,6 +28,7 @@ namespace CClick
         private Json jData = new Json();
         private Data userData = new Data();
         private StatsData userStatsData = new StatsData();
+        private SettingsForm settingsForm = new SettingsForm();
 
         public CClick()
         {
@@ -427,33 +429,37 @@ namespace CClick
         {
             if (display)
             {
+                clickableButton.Size = new Size(380, 232);
                 typeCheckBox.Enabled = true;
                 typeCheckBox.Visible = true;
                 battleTypeCheckBox.Enabled = true;
                 battleTypeCheckBox.Visible = true;
+                battleHealthTextBox.Enabled = true;
+                battleHealthTextBox.Visible = true;
+                battleDamageTextBox.Enabled = true;
+                battleDamageTextBox.Visible = true;
                 customConfigSaveButton.Visible = true;
                 applyConfigButton.Visible = true;
 
                 typeTextBox.Visible = true;
                 typeTextBox.Enabled = true;
-                Size = new Size(675, this.Size.Height);
             }
             else
             {
-                if (Size != new Size(420, 490))
-                {
-                    Size = new Size(420, 490);
+                clickableButton.Size = new Size(634, 232);
+                typeCheckBox.Enabled = false;
+                typeCheckBox.Visible = false;
+                battleTypeCheckBox.Enabled = false;
+                battleTypeCheckBox.Visible = false;
+                battleHealthTextBox.Enabled = false;
+                battleHealthTextBox.Visible = false;
+                battleDamageTextBox.Enabled = false;
+                battleDamageTextBox.Visible = false;
+                customConfigSaveButton.Visible = false;
+                applyConfigButton.Visible = false;
 
-                    typeCheckBox.Enabled = false;
-                    typeCheckBox.Visible = false;
-                    battleTypeCheckBox.Enabled = false;
-                    battleTypeCheckBox.Visible = false;
-                    customConfigSaveButton.Visible = false;
-                    applyConfigButton.Visible = false;
-
-                    typeTextBox.Visible = false;
-                    typeTextBox.Enabled = false;
-                }
+                typeTextBox.Visible = false;
+                typeTextBox.Enabled = false;
             }
         }
 
@@ -583,6 +589,14 @@ namespace CClick
             {
                 MessageBox.Show("Operation cancelled: Can't apply a null configuration.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void settingsIcon_Click(object sender, EventArgs e)
+        {
+            if (!settingsForm.Visible)
+                settingsForm.Show();
+            else
+                settingsForm.Hide();
         }
     }
 }
