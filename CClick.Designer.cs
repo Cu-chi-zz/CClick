@@ -40,10 +40,10 @@ namespace CClick
             this.battleTypeCheckBox = new System.Windows.Forms.CheckBox();
             this.battleHealthTextBox = new System.Windows.Forms.TextBox();
             this.battleDamageTextBox = new System.Windows.Forms.TextBox();
-            this.saveButton = new System.Windows.Forms.Button();
             this.customConfigSaveButton = new System.Windows.Forms.Button();
             this.applyConfigButton = new System.Windows.Forms.Button();
             this.settingsIcon = new System.Windows.Forms.Panel();
+            this.statsButton = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // clickableButton
@@ -182,22 +182,6 @@ namespace CClick
             this.battleDamageTextBox.TabIndex = 9;
             this.battleDamageTextBox.Visible = false;
             // 
-            // saveButton
-            // 
-            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
-            this.saveButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
-            this.saveButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
-            this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
-            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.saveButton.Location = new System.Drawing.Point(401, 412);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(164, 27);
-            this.saveButton.TabIndex = 11;
-            this.saveButton.Text = "Save current test as default";
-            this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
             // customConfigSaveButton
             // 
             this.customConfigSaveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
@@ -241,17 +225,26 @@ namespace CClick
             this.settingsIcon.TabIndex = 14;
             this.settingsIcon.Click += new System.EventHandler(this.settingsIcon_Click);
             // 
+            // statsButton
+            // 
+            this.statsButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("statsButton.BackgroundImage")));
+            this.statsButton.Location = new System.Drawing.Point(607, 6);
+            this.statsButton.Name = "statsButton";
+            this.statsButton.Size = new System.Drawing.Size(16, 16);
+            this.statsButton.TabIndex = 15;
+            this.statsButton.Click += new System.EventHandler(this.statsButton_Click);
+            // 
             // CClick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(659, 451);
+            this.Controls.Add(this.statsButton);
             this.Controls.Add(this.settingsIcon);
             this.Controls.Add(this.clickLabel);
             this.Controls.Add(this.applyConfigButton);
             this.Controls.Add(this.customConfigSaveButton);
-            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.battleDamageTextBox);
             this.Controls.Add(this.battleHealthTextBox);
             this.Controls.Add(this.battleTypeCheckBox);
@@ -286,10 +279,10 @@ namespace CClick
         private System.Windows.Forms.CheckBox battleTypeCheckBox;
         private System.Windows.Forms.TextBox battleHealthTextBox;
         private System.Windows.Forms.TextBox battleDamageTextBox;
-        private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button customConfigSaveButton;
         private System.Windows.Forms.Button applyConfigButton;
         private System.Windows.Forms.Panel settingsIcon;
+        private System.Windows.Forms.Panel statsButton;
     }
 }
 
