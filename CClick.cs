@@ -39,6 +39,10 @@ namespace CClick
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            ToolTip ToolTips = new ToolTip();
+            ToolTips.SetToolTip(statsButton, "Open Statistics");
+            ToolTips.SetToolTip(settingsIcon, "Open Settings");
+
             settingsForm.soundEffectCheckBox.CheckedChanged += new EventHandler(SoundEffectCheckedChanged);
             settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
 
