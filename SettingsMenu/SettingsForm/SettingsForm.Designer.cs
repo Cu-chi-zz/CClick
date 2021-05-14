@@ -30,6 +30,7 @@
         {
             this.soundEffectCheckBox = new System.Windows.Forms.CheckBox();
             this.saveButton = new System.Windows.Forms.Button();
+            this.saveLogsCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // soundEffectCheckBox
@@ -62,12 +63,28 @@
             this.saveButton.Text = "Save current test as default";
             this.saveButton.UseVisualStyleBackColor = false;
             // 
+            // saveLogsCheckBox
+            // 
+            this.saveLogsCheckBox.AutoSize = true;
+            this.saveLogsCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
+            this.saveLogsCheckBox.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.saveLogsCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.saveLogsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveLogsCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.saveLogsCheckBox.Location = new System.Drawing.Point(12, 37);
+            this.saveLogsCheckBox.Name = "saveLogsCheckBox";
+            this.saveLogsCheckBox.Size = new System.Drawing.Size(72, 19);
+            this.saveLogsCheckBox.TabIndex = 13;
+            this.saveLogsCheckBox.Text = "Save logs";
+            this.saveLogsCheckBox.UseVisualStyleBackColor = false;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(349, 319);
+            this.Controls.Add(this.saveLogsCheckBox);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.soundEffectCheckBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -83,5 +100,6 @@
 
         public System.Windows.Forms.CheckBox soundEffectCheckBox;
         public System.Windows.Forms.Button saveButton;
+        public System.Windows.Forms.CheckBox saveLogsCheckBox;
     }
 }

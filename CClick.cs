@@ -58,7 +58,9 @@ namespace CClick
                 {
                     EnableSound = false,
                     DefaultTest = -1,
-                    CustomConfig = null
+                    CustomConfig = null,
+                    RichTextBoxSaveEnabled = false,
+                    RichTextBoxContent = {}
                 };
 
                 System.IO.Directory.CreateDirectory("data");
@@ -150,6 +152,14 @@ namespace CClick
 
             settingsForm.soundEffectCheckBox.CheckedChanged += new EventHandler(SoundEffectCheckedChanged);
             settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
+            settingsForm.saveLogsCheckBox.CheckedChanged += new EventHandler(SaveLogsCheckedChanged);
+
+            if (userData.RichTextBoxSaveEnabled)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                richTextBox1.Text = userData.RichTextBoxContent;
+                Cursor.Current = Cursors.Default;
+            }
         }
 
         private void clickableButton_Click(object sender, EventArgs e)
@@ -186,8 +196,9 @@ namespace CClick
                             clickLabel.Text = 10 - clickCounter + " left";
                             if (clickCounter == 10)
                             {
-                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 10 clicks\n";
-                                richTextBox1.ScrollToCaret();
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 10 clicks\n";
+                                richTextBox1.Text += s;
+                                AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
@@ -200,8 +211,9 @@ namespace CClick
                             clickLabel.Text = 100 - clickCounter + " left";
                             if (clickCounter == 100)
                             {
-                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 100 clicks\n";
-                                richTextBox1.ScrollToCaret();
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 100 clicks\n";
+                                richTextBox1.Text += s;
+                                AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
@@ -214,8 +226,9 @@ namespace CClick
                             clickLabel.Text = 1000 - clickCounter + " left";
                             if (clickCounter == 1000)
                             {
-                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 1000 clicks\n";
-                                richTextBox1.ScrollToCaret();
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 1000 clicks\n";
+                                richTextBox1.Text += s;
+                                AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
@@ -245,8 +258,9 @@ namespace CClick
                                 clickLabel.Text = typeModeEnteredValue - clickCounter + " left";
                                 if (clickCounter == typeModeEnteredValue)
                                 {
-                                    richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {typeModeEnteredValue} clicks\n";
-                                    richTextBox1.ScrollToCaret();
+                                    string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {typeModeEnteredValue} clicks\n";
+                                    richTextBox1.Text += s;
+                                    AddRichTextBoxSaveContent(s);
                                     MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 }
                             }
@@ -257,8 +271,9 @@ namespace CClick
                             clickLabel.Text = battleModeHealth + "hp remaining";
                             if (battleModeHealth <= 0)
                             {
-                                richTextBox1.Text += "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do kill enemy with {battleHealthTextBox.Text}hp, you were doing {battleModeDamage} damage per click\n";
-                                richTextBox1.ScrollToCaret();
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do kill enemy with {battleHealthTextBox.Text}hp, you were doing {battleModeDamage} damage per click\n";
+                                richTextBox1.Text += s;
+                                AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
@@ -357,12 +372,9 @@ namespace CClick
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
-                            richTextBox1.Text += "Clicked ";
-                            richTextBox1.Text += clickCounter.ToString();
-                            richTextBox1.Text += " times in 10s\n";
-                            richTextBox1.Text += "Clicks per second on average: \n";
-                            richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
-                            richTextBox1.Text += " cps\n";
+                            string s = $"Clicked {clickCounter.ToString()} times in 10s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
+                            richTextBox1.Text += s;
+                            AddRichTextBoxSaveContent(s);
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -375,12 +387,9 @@ namespace CClick
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
-                            richTextBox1.Text += "Clicked ";
-                            richTextBox1.Text += clickCounter.ToString();
-                            richTextBox1.Text += " times in 1s\n";
-                            richTextBox1.Text += "Clicks per second on average: \n";
-                            richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
-                            richTextBox1.Text += " cps\n";
+                            string s = $"Clicked {clickCounter.ToString()} times in 1s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
+                            richTextBox1.Text += s;
+                            AddRichTextBoxSaveContent(s);
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -394,12 +403,9 @@ namespace CClick
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
-                            richTextBox1.Text += "Clicked ";
-                            richTextBox1.Text += clickCounter.ToString();
-                            richTextBox1.Text += $" times in {secFromTextBox}s\n";
-                            richTextBox1.Text += "Clicks per second on average: \n";
-                            richTextBox1.Text += ToClickPerSeconds(clickCounter, ms);
-                            richTextBox1.Text += " cps\n";
+                            string s = $"Clicked {clickCounter.ToString()} times in {secFromTextBox}s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
+                            richTextBox1.Text += s;
+                            AddRichTextBoxSaveContent(s);
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -498,7 +504,25 @@ namespace CClick
             {
                 EnableSound = settingsForm.soundEffectCheckBox.Checked,
                 DefaultTest = userData.DefaultTest,
-                CustomConfig = userData.CustomConfig
+                CustomConfig = userData.CustomConfig,
+                RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
+                RichTextBoxContent = userData.RichTextBoxContent
+            };
+
+            jData.WriteData(dateToWrite, "data//data.json");
+
+            updateLocalData();
+        }
+
+        private void SaveLogsCheckedChanged(object sender, EventArgs e)
+        {
+            Data dateToWrite = new Data
+            {
+                EnableSound = userData.EnableSound,
+                DefaultTest = userData.DefaultTest,
+                CustomConfig = userData.CustomConfig,
+                RichTextBoxSaveEnabled = settingsForm.saveLogsCheckBox.Checked,
+                RichTextBoxContent = userData.RichTextBoxContent
             };
 
             jData.WriteData(dateToWrite, "data//data.json");
@@ -512,7 +536,9 @@ namespace CClick
             {
                 EnableSound = userData.EnableSound,
                 DefaultTest = comboBox.SelectedIndex,
-                CustomConfig = userData.CustomConfig
+                CustomConfig = userData.CustomConfig,
+                RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
+                RichTextBoxContent = userData.RichTextBoxContent
             };
 
             if (!jData.WriteData(dateToWrite, "data//data.json"))
@@ -537,7 +563,9 @@ namespace CClick
             {
                 EnableSound = userData.EnableSound,
                 DefaultTest = userData.DefaultTest,
-                CustomConfig = config
+                CustomConfig = config,
+                RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
+                RichTextBoxContent = userData.RichTextBoxContent
             };
 
             if (!jData.WriteData(dateToWrite, "data//data.json"))
@@ -613,6 +641,31 @@ namespace CClick
             }
             else
                 statsForm.Hide();
+        }
+
+        private void AddRichTextBoxSaveContent(string content)
+        {
+            Data dateToWrite = new Data
+            {
+                EnableSound = userData.EnableSound,
+                DefaultTest = userData.DefaultTest,
+                CustomConfig = userData.CustomConfig,
+                RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
+                RichTextBoxContent = userData.RichTextBoxContent + content
+            };
+
+            if (!jData.WriteData(dateToWrite, "data//data.json"))
+            {
+                MessageBox.Show("An error occured: Can't write json data.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            updateLocalData();
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            richTextBox1.SelectionStart = richTextBox1.Text.Length;
+            richTextBox1.ScrollToCaret();
         }
     }
 }

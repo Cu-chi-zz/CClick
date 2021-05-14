@@ -93,6 +93,7 @@ namespace CClick
             this.richTextBox1.Size = new System.Drawing.Size(634, 103);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // timeLabel
             // 
