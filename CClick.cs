@@ -11,15 +11,20 @@ namespace CClick
 {
     public partial class CClick : Form
     {
+        #region Default values which are gonna be modified on test launched
+
         private bool running = false;
         private int clickCounter = 0;
-        private Stopwatch watcher = new Stopwatch();
-        private System.Timers.Timer timer;
-        private readonly string version = "0.921";
         private int battleModeHealth = 0;
         private int battleModeDamage = 0;
         private int typeModeEnteredValue = 0;
         private bool firstClickValuesCheck = false;
+
+        #endregion
+
+        private Stopwatch watcher = new Stopwatch();
+        private System.Timers.Timer timer;
+        private readonly string version = "0.921";
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
         private Json jData = new Json();
         private Data userData = new Data();
@@ -31,6 +36,7 @@ namespace CClick
         {
             InitializeComponent();
 
+            #region Version Check
             string latestVersion = new WebClient().DownloadString("https://pastebin.com/raw/vNb10fgb");
 
             // Version check
@@ -43,8 +49,9 @@ namespace CClick
                     Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/Cu-chi/CClick/releases/download/{latestVersion}/CClick-{latestVersion}.zip") { CreateNoWindow = true });
                 }
             }
+            #endregion
 
-
+            #region JSON: user settings data (default test, sound effect etc...)
             if (!System.IO.File.Exists("data\\data.json"))
             {
                 Data json = new Data
@@ -101,7 +108,9 @@ namespace CClick
                     CustomTestDisplay(true); // Display customization panel
                 }
             }
+            #endregion
 
+            #region JSON: user statistics data
             if (!System.IO.File.Exists("data\\stats.json"))
             {
                 StatsData json = new StatsData
@@ -130,8 +139,7 @@ namespace CClick
                     return;
                 }
             }
-
-            
+            #endregion
         }
 
         private void Form1_Load(object sender, EventArgs e)
