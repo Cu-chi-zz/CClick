@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Timers;
-using Octokit;
 using CClick.SettingsMenu;
 using CClick.StatsMenu.StatsForm;
+using System.Net;
 
 namespace CClick
 {
@@ -35,18 +30,21 @@ namespace CClick
         public CClick()
         {
             InitializeComponent();
-        }
 
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            ToolTip ToolTips = new ToolTip();
-            ToolTips.SetToolTip(statsButton, "Open Statistics");
-            ToolTips.SetToolTip(settingsIcon, "Open Settings");
+            string latestVersion = new WebClient().DownloadString("https://pastebin.com/raw/vNb10fgb");
 
-            settingsForm.soundEffectCheckBox.CheckedChanged += new EventHandler(SoundEffectCheckedChanged);
-            settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
+            // Version check
+            if (!latestVersion.Contains(version))
+            {
+                DialogResult verResult = MessageBox.Show($"A new version is now available :\nYou are using > {version}\nNew > {latestVersion}\nDo you want to install the new version?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
 
-            // JSON Data part
+                if (verResult == DialogResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/Cu-chi/CClick/releases/download/{latestVersion}/CClick-{latestVersion}.zip") { CreateNoWindow = true });
+                }
+            }
+
+
             if (!System.IO.File.Exists("data\\data.json"))
             {
                 Data json = new Data
@@ -133,34 +131,17 @@ namespace CClick
                 }
             }
 
-            try
-            {
-                var client = new GitHubClient(new ProductHeaderValue("CClick"));
-                var releases = await client.Repository.Release.GetAll("Cu-chi", "CClick");
+            
+        }
 
-                try
-                {
-                    var latest = releases[0];
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ToolTip ToolTips = new ToolTip();
+            ToolTips.SetToolTip(statsButton, "Open Statistics");
+            ToolTips.SetToolTip(settingsIcon, "Open Settings");
 
-                    if (version != latest.TagName)
-                    {
-                        DialogResult verResult = MessageBox.Show($"A new version is now available :\nYou are using > {version}\nNew > {latest.TagName}\nDo you want to install the new version?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
-
-                        if (verResult == DialogResult.Yes)
-                        {
-                            Process.Start(new ProcessStartInfo("cmd", $"/c start https://github.com/Cu-chi/CClick/releases/download/{latest.TagName}/CClick-{latest.TagName}.zip") { CreateNoWindow = true });
-                        }
-                    }
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    MessageBox.Show($"GIT VERSION CHECK: No version found.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (NotFoundException)
-            {
-                MessageBox.Show($"GIT VERSION CHECK: Can't find this repository on github.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            settingsForm.soundEffectCheckBox.CheckedChanged += new EventHandler(SoundEffectCheckedChanged);
+            settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
         }
 
         private void clickableButton_Click(object sender, EventArgs e)
