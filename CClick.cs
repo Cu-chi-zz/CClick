@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Timers;
 using Octokit;
 using CClick.SettingsMenu;
+using CClick.StatsMenu.StatsForm;
 
 namespace CClick
 {
@@ -29,6 +30,7 @@ namespace CClick
         private Data userData = new Data();
         private StatsData userStatsData = new StatsData();
         private SettingsForm settingsForm = new SettingsForm();
+        private StatsForm statsForm = new StatsForm();
 
         public CClick()
         {
@@ -38,6 +40,7 @@ namespace CClick
         private async void Form1_Load(object sender, EventArgs e)
         {
             settingsForm.soundEffectCheckBox.CheckedChanged += new EventHandler(SoundEffectCheckedChanged);
+            settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
 
             // JSON Data part
             if (!System.IO.File.Exists("data\\data.json"))
@@ -104,7 +107,8 @@ namespace CClick
                     ClicksAverage = 0,
                     TotalClicks = 0,
                     TotalMsElapsedOnTest = 0,
-                    TotalTests = 0
+                    TotalTests = 0,
+                    ClicksPerSecondsAverage = 0
                 };
 
                 if (!jData.WriteStatsData(json, "data\\stats.json"))
@@ -331,13 +335,13 @@ namespace CClick
             timer.Stop();
             timer.Dispose();
             firstClickValuesCheck = false;
-
             StatsData newStatsData = new StatsData
             {
                 ClicksAverage = (userStatsData.TotalClicks + clickCounter) / (userStatsData.TotalTests + 1.0), // If 1, that's automatically round the double value
                 TotalClicks = userStatsData.TotalClicks + clickCounter,
-                TotalMsElapsedOnTest = userStatsData.TotalMsElapsedOnTest + watcher.Elapsed.TotalMilliseconds,
-                TotalTests = userStatsData.TotalTests + 1
+                TotalMsElapsedOnTest = userStatsData.TotalMsElapsedOnTest + watcher.ElapsedMilliseconds,
+                TotalTests = userStatsData.TotalTests + 1,
+                ClicksPerSecondsAverage = ToClickPerSeconds(userStatsData.TotalClicks + clickCounter, (long)userStatsData.TotalMsElapsedOnTest + watcher.ElapsedMilliseconds)
             };
             jData.WriteStatsData(newStatsData, "data\\stats.json");
             updateLocalStatsData();
@@ -599,6 +603,23 @@ namespace CClick
             }
             else
                 settingsForm.Hide();
+        }
+
+        private void statsButton_Click(object sender, EventArgs e)
+        {
+            if (!statsForm.Visible)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                statsForm.totalClicksLabel.Text = $"Total Clicks: {userStatsData.TotalClicks}";
+                statsForm.totalTestsLabel.Text = $"Total Tests: {userStatsData.TotalTests}";
+                statsForm.clicksAverageLabel.Text = $"Clicks per test average: {Math.Round(userStatsData.ClicksAverage, 3)}";
+                statsForm.timeElapsedLabel.Text = $"Time elapsed on tests: {Math.Round(userStatsData.TotalMsElapsedOnTest / 1000, 2)}s";
+                statsForm.clicksPerSecondsAverageLabel.Text = $"Clicks per seconds average: {Math.Round(userStatsData.ClicksPerSecondsAverage, 3)}/s";
+                statsForm.ShowDialog();
+                Cursor.Current = Cursors.Default;
+            }
+            else
+                statsForm.Hide();
         }
     }
 }

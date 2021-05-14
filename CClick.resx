@@ -75,6 +75,19 @@
         TE5OOn9JPnQKLpK6OGuCuCP+Ovjq+BRzEY7KmH+U2WDoaF35GAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="statsButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAB3RJTUUH5QUOCiwbHKH/RgAAABl0RVh0
+        U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAFQSURBVDhPvdLPK8NxHMdx22xqsRTt4EItF9qU
+        A5IpVyVSflzdFE2UA8lBlnKyix9JKEclSu0yWXZZofwBOCgHyklKKZ6ven+K1rIcfOpR38/78/m8vp/v
+        5/spK9YWl5LiwSze8Yl7tMBmFWmagHK0YQ+veMM4FOrYCmsqmAZs4wZrWEUKVZjHIabg1eRahOAWB7CD
+        Y8SgN9UjjCAuoM85QUALVnAGJWpiP67RBI37UAEFV6IgoA5jOMUVbjEDt6MBnOMIUWTxI8DRW7oxiRqr
+        yTS04AVdUFhBQARxNMOr2rdD/TVAh6QT/0AO1dB3+1FywIEVdQY6vF2kMYgESg64RAcerb+A/wnYt2Ie
+        ur4P1p/DhD0/oxMZ6+u3+hUgrRhBD3QrezGMRuhaD6EPOmDtYhTt8GixtrmJdWxgy55FdTcmGtMcN7as
+        gDtoS3+QfPoC8+PfKsGMpVoAAAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="$this.Locked" type="System.Boolean, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
     <value>True</value>
   </metadata>
