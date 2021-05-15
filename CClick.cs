@@ -6,6 +6,7 @@ using System.Timers;
 using CClick.SettingsMenu;
 using CClick.StatsMenu.StatsForm;
 using System.Net;
+using System.IO;
 
 namespace CClick
 {
@@ -22,10 +23,10 @@ namespace CClick
 
         #endregion
 
-        private Stopwatch watcher = new Stopwatch();
-        private System.Timers.Timer timer;
         private readonly string version = "0.921";
+        private System.Timers.Timer timer;
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
+        private Stopwatch watcher = new Stopwatch();
         private Json jData = new Json();
         private Data userData = new Data();
         private StatsData userStatsData = new StatsData();
@@ -54,22 +55,61 @@ namespace CClick
             #region JSON: user settings data (default test, sound effect etc...)
             if (!System.IO.File.Exists("data\\data.json"))
             {
-                Data json = new Data
+                DialogResult resultMsgBox = MessageBox.Show("Have you just updated Click?", "CClick", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                string olderDataCClickPath = "";
+                if (resultMsgBox == DialogResult.Yes)
                 {
-                    EnableSound = false,
-                    DefaultTest = -1,
-                    CustomConfig = null,
-                    RichTextBoxSaveEnabled = false,
-                    RichTextBoxContent = {}
-                };
+                    FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
+                    openFolderDialog.Description = "Select your older CClick folder";
 
-                System.IO.Directory.CreateDirectory("data");
+                    if (openFolderDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        olderDataCClickPath = openFolderDialog.SelectedPath + "\\data";
 
-                if (!jData.WriteData(json, "data\\data.json"))
+                        DirectoryInfo dir = new DirectoryInfo(olderDataCClickPath);
+                        FileInfo[] files = null;
+                        try
+                        {
+                            files = dir.GetFiles();
+                        }
+                        catch (DirectoryNotFoundException)
+                        {
+                            MessageBox.Show("Can't find any data folder.", "CClick", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        Directory.CreateDirectory("data");
+
+                        foreach (FileInfo file in files)
+                        {
+                            if (file.Extension == ".json")
+                            {
+                                file.CopyTo($"data\\{file.Name}", false);
+                            }
+                        }
+                    }
+
+                    updateLocalData();
+                }
+                else
                 {
-                    MessageBox.Show("An error occured: Json file can't be created.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    this.Close();
-                    return;
+                    Data json = new Data
+                    {
+                        EnableSound = false,
+                        DefaultTest = -1,
+                        CustomConfig = null,
+                        RichTextBoxSaveEnabled = false,
+                        RichTextBoxContent = {}
+                    };
+
+                    Directory.CreateDirectory("data");
+
+                    if (!jData.WriteData(json, "data\\data.json"))
+                    {
+                        MessageBox.Show("An error occured: Json file can't be created.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
+                        return;
+                    }
                 }
             }
             else
@@ -153,11 +193,12 @@ namespace CClick
             settingsForm.soundEffectCheckBox.CheckedChanged += new EventHandler(SoundEffectCheckedChanged);
             settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
             settingsForm.saveLogsCheckBox.CheckedChanged += new EventHandler(SaveLogsCheckedChanged);
+            settingsForm.resetButton.Click += new EventHandler(ResetDataFolder);
 
-            if (userData.RichTextBoxSaveEnabled)
+            if (userData.RichTextBoxSaveEnabled) // If user enabled the richtextbox save
             {
                 Cursor.Current = Cursors.WaitCursor;
-                richTextBox1.Text = userData.RichTextBoxContent;
+                richTextBox1.Text = userData.RichTextBoxContent; // Load the save into the richtextbox
                 Cursor.Current = Cursors.Default;
             }
         }
@@ -238,7 +279,7 @@ namespace CClick
                         clickCounter++;
                         clickLabel.Text = clickCounter + " clicks";
                     }
-                    else if (comboBox.SelectedIndex == 5) // Test using time
+                    else if (comboBox.SelectedIndex == 5) // Custom test
                     {
                         if (typeCheckBox.Checked)
                         {
@@ -372,7 +413,7 @@ namespace CClick
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
-                            string s = $"Clicked {clickCounter.ToString()} times in 10s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
+                            string s = $"Clicked {clickCounter} times in 10s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
                             richTextBox1.Text += s;
                             AddRichTextBoxSaveContent(s);
                         }));
@@ -387,7 +428,7 @@ namespace CClick
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
-                            string s = $"Clicked {clickCounter.ToString()} times in 1s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
+                            string s = $"Clicked {clickCounter} times in 1s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
                             richTextBox1.Text += s;
                             AddRichTextBoxSaveContent(s);
                         }));
@@ -403,7 +444,7 @@ namespace CClick
                         EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
-                            string s = $"Clicked {clickCounter.ToString()} times in {secFromTextBox}s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
+                            string s = $"Clicked {clickCounter} times in {secFromTextBox}s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
                             richTextBox1.Text += s;
                             AddRichTextBoxSaveContent(s);
                         }));
@@ -666,6 +707,17 @@ namespace CClick
         {
             richTextBox1.SelectionStart = richTextBox1.Text.Length;
             richTextBox1.ScrollToCaret();
+        }
+
+        private void ResetDataFolder(object sender, EventArgs e)
+        {
+            DialogResult resultMsgBox = MessageBox.Show("Are you really sure?", "CClick", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (resultMsgBox == DialogResult.Yes)
+            {
+                Directory.Delete("data", true);
+                MessageBox.Show("CClick need to restart.", "CClick", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
         }
     }
 }
