@@ -24,7 +24,7 @@ namespace CClick
 
         #endregion
 
-        private readonly string version = "0.921";
+        private readonly string version = "0.941";
         private System.Timers.Timer timer;
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
         private Stopwatch watcher = new Stopwatch();
