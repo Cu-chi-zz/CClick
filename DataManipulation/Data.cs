@@ -37,9 +37,9 @@ namespace CClick
         public Data ReadData(string p)
         {
             Data d;
-            string jString = System.IO.File.ReadAllText(p);
             try
             {
+                string jString = System.IO.File.ReadAllText(p);
                 d = JsonConvert.DeserializeObject<Data>(jString);
                 return d;
             }
@@ -76,9 +76,9 @@ namespace CClick
         public StatsData ReadStatsData(string p)
         {
             StatsData d;
-            string jString = System.IO.File.ReadAllText(p);
             try
             {
+                string jString = System.IO.File.ReadAllText(p);
                 d = JsonConvert.DeserializeObject<StatsData>(jString);
                 return d;
             }
@@ -91,6 +91,7 @@ namespace CClick
 
     public class Data
     {
+        public bool AlreadyLauched { get; set; }
         public bool EnableSound { get; set; }
         public int DefaultTest { get; set; }
         public string[] CustomConfig { get; set; }
