@@ -31,6 +31,7 @@
             this.soundEffectCheckBox = new System.Windows.Forms.CheckBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.saveLogsCheckBox = new System.Windows.Forms.CheckBox();
+            this.resetButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // soundEffectCheckBox
@@ -56,7 +57,7 @@
             this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.saveButton.Location = new System.Drawing.Point(12, 279);
+            this.saveButton.Location = new System.Drawing.Point(12, 245);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(325, 28);
             this.saveButton.TabIndex = 12;
@@ -78,12 +79,28 @@
             this.saveLogsCheckBox.Text = "Save logs";
             this.saveLogsCheckBox.UseVisualStyleBackColor = false;
             // 
+            // resetButton
+            // 
+            this.resetButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.resetButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.resetButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.resetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
+            this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.resetButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.resetButton.Location = new System.Drawing.Point(12, 279);
+            this.resetButton.Name = "resetButton";
+            this.resetButton.Size = new System.Drawing.Size(325, 28);
+            this.resetButton.TabIndex = 14;
+            this.resetButton.Text = "Reset data folder";
+            this.resetButton.UseVisualStyleBackColor = false;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(349, 319);
+            this.Controls.Add(this.resetButton);
             this.Controls.Add(this.saveLogsCheckBox);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.soundEffectCheckBox);
@@ -101,5 +118,6 @@
         public System.Windows.Forms.CheckBox soundEffectCheckBox;
         public System.Windows.Forms.Button saveButton;
         public System.Windows.Forms.CheckBox saveLogsCheckBox;
+        public System.Windows.Forms.Button resetButton;
     }
 }
