@@ -20,6 +20,7 @@ namespace CClick
         private int battleModeDamage = 0;
         private int typeModeEnteredValue = 0;
         private bool firstClickValuesCheck = false;
+        private bool maximumProgressBarChecked = false;
 
         #endregion
 
@@ -96,6 +97,7 @@ namespace CClick
                     Data json = new Data
                     {
                         EnableSound = false,
+                        EnableProgressBar = false,
                         DefaultTest = -1,
                         CustomConfig = null,
                         RichTextBoxSaveEnabled = false,
@@ -194,6 +196,7 @@ namespace CClick
             settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
             settingsForm.saveLogsCheckBox.CheckedChanged += new EventHandler(SaveLogsCheckedChanged);
             settingsForm.resetButton.Click += new EventHandler(ResetDataFolder);
+            settingsForm.progressBarCheckbox.CheckedChanged += new EventHandler(ProgressBarCheckedChanged);
 
             if (userData.RichTextBoxSaveEnabled) // If user enabled the richtextbox save
             {
@@ -337,6 +340,7 @@ namespace CClick
             timer = new System.Timers.Timer();
             timer.Elapsed += Timer;
             timer.Enabled = true;
+            progressBar.Visible = userData.EnableProgressBar;
 
             if (comboBox.SelectedIndex == 0) // 10 Clicks
             {
@@ -384,6 +388,7 @@ namespace CClick
             timer.Stop();
             timer.Dispose();
             firstClickValuesCheck = false;
+            maximumProgressBarChecked = false;
             StatsData newStatsData = new StatsData
             {
                 ClicksAverage = (userStatsData.TotalClicks + clickCounter) / (userStatsData.TotalTests + 1.0), // If 1, that's automatically round the double value
@@ -450,6 +455,81 @@ namespace CClick
                         }));
                         MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
+                }
+            }));
+
+            progressBar.Invoke(new Action(() => {
+                switch (comboBox.SelectedIndex)
+                {
+                    case 0: // If 10 clicks test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 10;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = clickCounter;
+                        break;
+                    case 1: // If 100 clicks test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 100;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = clickCounter;
+                        break;
+                    case 2: // If 1000 clicks test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 1000;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = clickCounter;
+                        break;
+                    case 3: // If 10 sec test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 10;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
+                        break;
+                    case 4: // If 1 sec test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 1;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
+                        break;
+                    case 5: // If is a custom test
+                        if (typeCheckBox.Checked)
+                        {
+                            if (!maximumProgressBarChecked)
+                            {
+                                progressBar.Maximum = int.Parse(typeTextBox.Text);
+                                maximumProgressBarChecked = true;
+                            }
+                            progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
+                        }
+                        else if ((!typeCheckBox.Checked) && (!battleTypeCheckBox.Checked))
+                        {
+                            if (!maximumProgressBarChecked)
+                            {
+                                progressBar.Maximum = typeModeEnteredValue;
+                                maximumProgressBarChecked = true;
+                            }
+                            progressBar.Value = clickCounter;
+                        }
+                        else if (battleTypeCheckBox.Checked)
+                        {
+                            if (!maximumProgressBarChecked)
+                            {
+                                progressBar.Maximum = battleModeHealth;
+                                maximumProgressBarChecked = true;
+                            }
+                            progressBar.Value = progressBar.Maximum - battleModeHealth;
+                        }
+                        break;
                 }
             }));
         }
@@ -544,6 +624,7 @@ namespace CClick
             Data dateToWrite = new Data
             {
                 EnableSound = settingsForm.soundEffectCheckBox.Checked,
+                EnableProgressBar = userData.EnableProgressBar,
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
@@ -560,6 +641,7 @@ namespace CClick
             Data dateToWrite = new Data
             {
                 EnableSound = userData.EnableSound,
+                EnableProgressBar = userData.EnableProgressBar,
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = settingsForm.saveLogsCheckBox.Checked,
@@ -576,6 +658,7 @@ namespace CClick
             Data dateToWrite = new Data
             {
                 EnableSound = userData.EnableSound,
+                EnableProgressBar = userData.EnableProgressBar,
                 DefaultTest = comboBox.SelectedIndex,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
@@ -603,6 +686,7 @@ namespace CClick
             Data dateToWrite = new Data
             {
                 EnableSound = userData.EnableSound,
+                EnableProgressBar = userData.EnableProgressBar,
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = config,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
@@ -660,7 +744,7 @@ namespace CClick
             SettingsFormUtilities settingsFormUtilities = new SettingsFormUtilities();
             if (!settingsForm.Visible)
             {
-                settingsFormUtilities.InitializeSettingsFormParameters(settingsForm, userData.EnableSound);
+                settingsFormUtilities.InitializeSettingsFormParameters(settingsForm, userData.EnableSound, userData.RichTextBoxSaveEnabled, userData.EnableProgressBar);
                 settingsForm.ShowDialog();
             }
             else
@@ -689,6 +773,7 @@ namespace CClick
             Data dateToWrite = new Data
             {
                 EnableSound = userData.EnableSound,
+                EnableProgressBar = userData.EnableProgressBar,
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
@@ -718,6 +803,23 @@ namespace CClick
                 MessageBox.Show("CClick need to restart.", "CClick", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
+        }
+
+        private void ProgressBarCheckedChanged(object sender, EventArgs e)
+        {
+            Data dateToWrite = new Data
+            {
+                EnableSound = userData.EnableSound,
+                EnableProgressBar = settingsForm.progressBarCheckbox.Checked,
+                DefaultTest = userData.DefaultTest,
+                CustomConfig = userData.CustomConfig,
+                RichTextBoxSaveEnabled = settingsForm.saveLogsCheckBox.Checked,
+                RichTextBoxContent = userData.RichTextBoxContent
+            };
+
+            jData.WriteData(dateToWrite, "data//data.json");
+
+            updateLocalData();
         }
     }
 }

@@ -91,8 +91,8 @@ namespace CClick
 
     public class Data
     {
-        public bool AlreadyLauched { get; set; }
         public bool EnableSound { get; set; }
+        public bool EnableProgressBar { get; set; }
         public int DefaultTest { get; set; }
         public string[] CustomConfig { get; set; }
         public bool RichTextBoxSaveEnabled { get; set; }

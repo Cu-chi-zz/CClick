@@ -44,6 +44,7 @@ namespace CClick
             this.applyConfigButton = new System.Windows.Forms.Button();
             this.settingsIcon = new System.Windows.Forms.Panel();
             this.statsButton = new System.Windows.Forms.Panel();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // clickableButton
@@ -235,12 +236,21 @@ namespace CClick
             this.statsButton.TabIndex = 15;
             this.statsButton.Click += new System.EventHandler(this.statsButton_Click);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(12, 440);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(634, 10);
+            this.progressBar.TabIndex = 16;
+            this.progressBar.Visible = false;
+            // 
             // CClick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(659, 451);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.statsButton);
             this.Controls.Add(this.settingsIcon);
             this.Controls.Add(this.clickLabel);
@@ -284,6 +294,7 @@ namespace CClick
         private System.Windows.Forms.Button applyConfigButton;
         private System.Windows.Forms.Panel settingsIcon;
         private System.Windows.Forms.Panel statsButton;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

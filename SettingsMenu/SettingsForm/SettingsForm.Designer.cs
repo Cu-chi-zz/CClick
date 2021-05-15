@@ -32,6 +32,7 @@
             this.saveButton = new System.Windows.Forms.Button();
             this.saveLogsCheckBox = new System.Windows.Forms.CheckBox();
             this.resetButton = new System.Windows.Forms.Button();
+            this.progressBarCheckbox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // soundEffectCheckBox
@@ -94,12 +95,28 @@
             this.resetButton.Text = "Reset data folder";
             this.resetButton.UseVisualStyleBackColor = false;
             // 
+            // progressBarCheckbox
+            // 
+            this.progressBarCheckbox.AutoSize = true;
+            this.progressBarCheckbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
+            this.progressBarCheckbox.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.progressBarCheckbox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.progressBarCheckbox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.progressBarCheckbox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.progressBarCheckbox.Location = new System.Drawing.Point(12, 62);
+            this.progressBarCheckbox.Name = "progressBarCheckbox";
+            this.progressBarCheckbox.Size = new System.Drawing.Size(126, 19);
+            this.progressBarCheckbox.TabIndex = 15;
+            this.progressBarCheckbox.Text = "Enable progress bar";
+            this.progressBarCheckbox.UseVisualStyleBackColor = false;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(349, 319);
+            this.Controls.Add(this.progressBarCheckbox);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.saveLogsCheckBox);
             this.Controls.Add(this.saveButton);
@@ -119,5 +136,6 @@
         public System.Windows.Forms.Button saveButton;
         public System.Windows.Forms.CheckBox saveLogsCheckBox;
         public System.Windows.Forms.Button resetButton;
+        public System.Windows.Forms.CheckBox progressBarCheckbox;
     }
 }
