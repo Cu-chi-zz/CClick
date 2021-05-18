@@ -7,6 +7,7 @@ using CClick.SettingsMenu;
 using CClick.StatsMenu.StatsForm;
 using System.Net;
 using System.IO;
+using System.Globalization;
 
 namespace CClick
 {
@@ -24,7 +25,7 @@ namespace CClick
 
         #endregion
 
-        private readonly string version = "0.941";
+        private readonly string version = "0.942";
         private System.Timers.Timer timer;
         private System.Media.SoundPlayer player = new System.Media.SoundPlayer(@"audio\click.wav");
         private Stopwatch watcher = new Stopwatch();
@@ -41,8 +42,10 @@ namespace CClick
             #region Version Check
             string latestVersion = new WebClient().DownloadString("https://pastebin.com/raw/vNb10fgb");
 
+            NumberFormatInfo provider = new NumberFormatInfo();
+            provider.NumberDecimalSeparator = ".";
             // Version check
-            if (!latestVersion.Contains(version))
+            if (Convert.ToDouble(version, provider) < Convert.ToDouble(latestVersion, provider))
             {
                 DialogResult verResult = MessageBox.Show($"A new version is now available :\nYou are using > {version}\nNew > {latestVersion}\nDo you want to install the new version?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
 
