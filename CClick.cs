@@ -555,7 +555,7 @@ namespace CClick
 
         private double ToClickPerSeconds(int totalClicks, long msElapsed)
         {
-            return Convert.ToDouble(totalClicks / (msElapsed / 1000.0)); // 1000.0 instead of 1000 fix the automatic rounding.
+            return totalClicks / (msElapsed / 1000.0); // 1000.0 instead of 1000 fix the automatic rounding.
         }
 
         private void comboBox_SelectionChangeCommitted(object sender, EventArgs e)
