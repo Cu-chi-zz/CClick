@@ -8,6 +8,7 @@ using CClick.StatsMenu.StatsForm;
 using System.Net;
 using System.IO;
 using System.Globalization;
+using System.Collections.Generic;
 
 namespace CClick
 {
@@ -166,7 +167,8 @@ namespace CClick
                     TotalClicks = 0,
                     TotalMsElapsedOnTest = 0,
                     TotalTests = 0,
-                    ClicksPerSecondsAverage = 0
+                    ClicksPerSecondsAverage = 0,
+                    ClicksPerSecondsAllTest = {}
                 };
 
                 if (!jData.WriteStatsData(json, "data\\stats.json"))
@@ -392,14 +394,28 @@ namespace CClick
             timer.Dispose();
             firstClickValuesCheck = false;
             maximumProgressBarChecked = false;
+
+            List<double> cpsAllTest;
+            if (userStatsData.ClicksPerSecondsAllTest != null)
+            {
+                cpsAllTest = new List<double>(userStatsData.ClicksPerSecondsAllTest);
+                cpsAllTest.Add(ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds));
+            }
+            else
+            {
+                cpsAllTest = new List<double>(new[] { ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds) });
+            }
+
             StatsData newStatsData = new StatsData
             {
                 ClicksAverage = (userStatsData.TotalClicks + clickCounter) / (userStatsData.TotalTests + 1.0), // If 1, that's automatically round the double value
                 TotalClicks = userStatsData.TotalClicks + clickCounter,
                 TotalMsElapsedOnTest = userStatsData.TotalMsElapsedOnTest + watcher.ElapsedMilliseconds,
                 TotalTests = userStatsData.TotalTests + 1,
-                ClicksPerSecondsAverage = ToClickPerSeconds(userStatsData.TotalClicks + clickCounter, (long)userStatsData.TotalMsElapsedOnTest + watcher.ElapsedMilliseconds)
+                ClicksPerSecondsAverage = ToClickPerSeconds(userStatsData.TotalClicks + clickCounter, (long)userStatsData.TotalMsElapsedOnTest + watcher.ElapsedMilliseconds),
+                ClicksPerSecondsAllTest = cpsAllTest
             };
+
             jData.WriteStatsData(newStatsData, "data\\stats.json");
             updateLocalStatsData();
 
@@ -539,7 +555,7 @@ namespace CClick
 
         private double ToClickPerSeconds(int totalClicks, long msElapsed)
         {
-            return (double)totalClicks / (double)(msElapsed / 1000);
+            return Convert.ToDouble(totalClicks / (msElapsed / 1000.0)); // 1000.0 instead of 1000 fix the automatic rounding.
         }
 
         private void comboBox_SelectionChangeCommitted(object sender, EventArgs e)
