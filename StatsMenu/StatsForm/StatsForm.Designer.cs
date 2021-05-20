@@ -34,6 +34,7 @@ namespace CClick.StatsMenu.StatsForm
             this.clicksAverageLabel = new System.Windows.Forms.Label();
             this.timeElapsedLabel = new System.Windows.Forms.Label();
             this.clicksPerSecondsAverageLabel = new System.Windows.Forms.Label();
+            this.chartPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // totalClicksLabel
@@ -91,12 +92,20 @@ namespace CClick.StatsMenu.StatsForm
             this.clicksPerSecondsAverageLabel.TabIndex = 4;
             this.clicksPerSecondsAverageLabel.Text = "Clicks per seconds average: 0/s";
             // 
+            // chartPanel
+            // 
+            this.chartPanel.Location = new System.Drawing.Point(13, 177);
+            this.chartPanel.Name = "chartPanel";
+            this.chartPanel.Size = new System.Drawing.Size(471, 248);
+            this.chartPanel.TabIndex = 5;
+            // 
             // StatsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(496, 437);
+            this.Controls.Add(this.chartPanel);
             this.Controls.Add(this.clicksPerSecondsAverageLabel);
             this.Controls.Add(this.timeElapsedLabel);
             this.Controls.Add(this.clicksAverageLabel);
@@ -117,5 +126,6 @@ namespace CClick.StatsMenu.StatsForm
         public System.Windows.Forms.Label timeElapsedLabel;
         public System.Windows.Forms.Label totalTestsLabel;
         public System.Windows.Forms.Label clicksPerSecondsAverageLabel;
+        public System.Windows.Forms.Panel chartPanel;
     }
 }

@@ -785,6 +785,8 @@ namespace CClick
                 statsForm.clicksAverageLabel.Text = $"Clicks per test average: {Math.Round(userStatsData.ClicksAverage, 3)}";
                 statsForm.timeElapsedLabel.Text = $"Time elapsed on tests: {Math.Round(userStatsData.TotalMsElapsedOnTest / 1000, 2)}s";
                 statsForm.clicksPerSecondsAverageLabel.Text = $"Clicks per seconds average: {Math.Round(userStatsData.ClicksPerSecondsAverage, 3)}/s";
+                StatsUtilities statsUtilities = new StatsUtilities();
+                statsUtilities.GetChart();
                 statsForm.ShowDialog();
                 Cursor.Current = Cursors.Default;
             }
