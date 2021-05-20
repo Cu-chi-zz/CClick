@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# IDE0090: Utiliser 'new(...)'
+dotnet_diagnostic.IDE0090.severity = none
+
+# IDE1006: Styles d'affectation de noms
+dotnet_diagnostic.IDE1006.severity = suggestion
