@@ -96,7 +96,7 @@ namespace CClick.StatsMenu.StatsForm
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
-            this.ClientSize = new System.Drawing.Size(496, 187);
+            this.ClientSize = new System.Drawing.Size(496, 437);
             this.Controls.Add(this.clicksPerSecondsAverageLabel);
             this.Controls.Add(this.timeElapsedLabel);
             this.Controls.Add(this.clicksAverageLabel);
