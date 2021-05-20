@@ -43,8 +43,11 @@ namespace CClick
             #region Version Check
             string latestVersion = new WebClient().DownloadString("https://pastebin.com/raw/vNb10fgb");
 
-            NumberFormatInfo provider = new NumberFormatInfo();
-            provider.NumberDecimalSeparator = ".";
+            NumberFormatInfo provider = new NumberFormatInfo
+            {
+                NumberDecimalSeparator = "."
+            };
+
             // Version check
             if (Convert.ToDouble(version, provider) < Convert.ToDouble(latestVersion, provider))
             {
@@ -64,15 +67,17 @@ namespace CClick
                 string olderDataCClickPath = "";
                 if (resultMsgBox == DialogResult.Yes)
                 {
-                    FolderBrowserDialog openFolderDialog = new FolderBrowserDialog();
-                    openFolderDialog.Description = "Select your older CClick folder";
+                    FolderBrowserDialog openFolderDialog = new FolderBrowserDialog
+                    {
+                        Description = "Select your older CClick folder"
+                    };
 
                     if (openFolderDialog.ShowDialog() == DialogResult.OK)
                     {
                         olderDataCClickPath = openFolderDialog.SelectedPath + "\\data";
 
                         DirectoryInfo dir = new DirectoryInfo(olderDataCClickPath);
-                        FileInfo[] files = null;
+                        FileInfo[] files;
                         try
                         {
                             files = dir.GetFiles();
@@ -553,7 +558,7 @@ namespace CClick
             }));
         }
 
-        private double ToClickPerSeconds(int totalClicks, long msElapsed)
+        private static double ToClickPerSeconds(int totalClicks, long msElapsed)
         {
             return totalClicks / (msElapsed / 1000.0); // 1000.0 instead of 1000 fix the automatic rounding.
         }
