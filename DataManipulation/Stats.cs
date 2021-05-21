@@ -22,10 +22,6 @@ namespace CClick
         {
             try
             {
-                // To-Do :
-                // 1 - Check if array is null
-                // 2 - Get result image
-                // 3 - Display Image in panel
                 Cursor.Current = Cursors.WaitCursor;
                 List<double> clicksArray = new Json().ReadStatsData("data\\stats.json").ClicksPerSecondsAllTest;
 
@@ -37,7 +33,13 @@ namespace CClick
 
                 string labelsIndex = "";
                 string dataFromArray = "";
-                
+
+                if (clicksArray == null)
+                {
+                    MessageBox.Show($"Tests results are empty, do a test and retry.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+
                 if (clicksArray.Count > 250)
                 {
                     // If array count is bigger than QuickChart values limit
