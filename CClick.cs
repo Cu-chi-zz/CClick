@@ -655,7 +655,7 @@ namespace CClick
                 RichTextBoxContent = userData.RichTextBoxContent
             };
 
-            jData.WriteData(dateToWrite, "data//data.json");
+            jData.WriteData(dateToWrite, "data\\data.json");
 
             updateLocalData();
         }
@@ -672,7 +672,7 @@ namespace CClick
                 RichTextBoxContent = userData.RichTextBoxContent
             };
 
-            jData.WriteData(dateToWrite, "data//data.json");
+            jData.WriteData(dateToWrite, "data\\data.json");
 
             updateLocalData();
         }
@@ -689,7 +689,7 @@ namespace CClick
                 RichTextBoxContent = userData.RichTextBoxContent
             };
 
-            if (!jData.WriteData(dateToWrite, "data//data.json"))
+            if (!jData.WriteData(dateToWrite, "data\\data.json"))
             {
                 MessageBox.Show("An error occured: Can't write json data.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -717,7 +717,7 @@ namespace CClick
                 RichTextBoxContent = userData.RichTextBoxContent
             };
 
-            if (!jData.WriteData(dateToWrite, "data//data.json"))
+            if (!jData.WriteData(dateToWrite, "data\\data.json"))
             {
                 MessageBox.Show("An error occured: Can't write json data.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -779,6 +779,9 @@ namespace CClick
         {
             if (!statsForm.Visible)
             {
+                if (statsForm.chartPanel.BackgroundImage != null)
+                    statsForm.chartPanel.BackgroundImage.Dispose();
+
                 Cursor.Current = Cursors.WaitCursor;
                 statsForm.totalClicksLabel.Text = $"Total Clicks: {userStatsData.TotalClicks}";
                 statsForm.totalTestsLabel.Text = $"Total Tests: {userStatsData.TotalTests}";
@@ -786,7 +789,11 @@ namespace CClick
                 statsForm.timeElapsedLabel.Text = $"Time elapsed on tests: {Math.Round(userStatsData.TotalMsElapsedOnTest / 1000, 2)}s";
                 statsForm.clicksPerSecondsAverageLabel.Text = $"Clicks per seconds average: {Math.Round(userStatsData.ClicksPerSecondsAverage, 3)}/s";
                 StatsUtilities statsUtilities = new StatsUtilities();
-                statsUtilities.GetChart();
+
+                if (statsUtilities.GetChart())
+                    statsForm.chartPanel.BackgroundImage = Image.FromFile("data\\chart.png");
+                else
+                    MessageBox.Show("An error occured to generate the chart: can't display cps chart.\nContact support or create issue on github", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 statsForm.ShowDialog();
                 Cursor.Current = Cursors.Default;
             }
