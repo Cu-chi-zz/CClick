@@ -26,7 +26,7 @@ namespace CClick
                 // 1 - Check if array is null
                 // 2 - Get result image
                 // 3 - Display Image in panel
-
+                Cursor.Current = Cursors.WaitCursor;
                 List<double> clicksArray = new Json().ReadStatsData("data\\stats.json").ClicksPerSecondsAllTest;
 
                 Chart qc = new Chart();
@@ -37,17 +37,46 @@ namespace CClick
 
                 string labelsIndex = "";
                 string dataFromArray = "";
-                for (int i = 0; i < clicksArray.Count; i++)
+                
+                if (clicksArray.Count > 250)
                 {
-                    if (labelsIndex == "")
+                    // If array count is bigger than QuickChart values limit
+                    // Start from array - 250 to last array value
+                    // > Set the last 250 tests in the chart
+                    for (int i = 250; i > 0; i--)
                     {
-                        labelsIndex += $"'{i}'";
-                        dataFromArray += $"{clicksArray[i].ToString().Replace(',', '.')}";
+                        int index = clicksArray.Count - i;
+
+                        if (labelsIndex == "")
+                        {
+                            labelsIndex += $"'{index}'";
+                            dataFromArray += $"{clicksArray[index]}";
+                        }
+                        else
+                        {
+                            labelsIndex += $", '{index}'";
+                            dataFromArray += $", {clicksArray[index]}";
+                        }
+
+                        if (i > 250)
+                            break;
                     }
-                    else
+
+                }
+                else
+                {
+                    for (int i = 0; i < clicksArray.Count; i++)
                     {
-                        labelsIndex += $", '{i}'";
-                        dataFromArray += $", {clicksArray[i].ToString().Replace(',', '.')}";
+                        if (labelsIndex == "")
+                        {
+                            labelsIndex += $"'{i}'";
+                            dataFromArray += $"{clicksArray[i]}";
+                        }
+                        else
+                        {
+                            labelsIndex += $", '{i}'";
+                            dataFromArray += $", {clicksArray[i]}";
+                        }
                     }
                 }
 
@@ -57,17 +86,28 @@ namespace CClick
                         labels: [{labelsIndex}],
                         datasets: [{{
                             label: 'CPS',
+                            borderColor: getGradientFillHelper('vertical', ['#eb3639', '#a336eb', '#36a2eb']),
+                            borderWidth: {(clicksArray.Count < 100 ? 3 : 1)},
+                            fill: false,
+                            pointRadius: 0,
+                            lineTension: 0.2,
                             data: [{dataFromArray}]
                         }}]
+                    }},
+                    options: {{
+                        legend: {{
+                          display: false
+                        }},
                     }}
                 }}";
 
-                Process.Start(new ProcessStartInfo("cmd", $"/c start {qc.GetShortUrl()}") { CreateNoWindow = true });
-                
+                qc.ToFile("data\\chart.png");
+                Cursor.Current = Cursors.Default;
                 return true;
             }
-            catch
+            catch (Exception e)
             {
+                MessageBox.Show($"{e}");
                 return false;
             }
         }
