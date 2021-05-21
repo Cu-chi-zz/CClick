@@ -404,11 +404,11 @@ namespace CClick
             if (userStatsData.ClicksPerSecondsAllTest != null)
             {
                 cpsAllTest = new List<double>(userStatsData.ClicksPerSecondsAllTest);
-                cpsAllTest.Add(ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds));
+                cpsAllTest.Add(Math.Round(ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds), 1));
             }
             else
             {
-                cpsAllTest = new List<double>(new[] { ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds) });
+                cpsAllTest = new List<double>(new[] { Math.Round(ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds), 1) });
             }
 
             StatsData newStatsData = new StatsData
