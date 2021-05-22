@@ -789,7 +789,7 @@ namespace CClick
                 statsForm.timeElapsedLabel.Text = $"Time elapsed on tests: {Math.Round(userStatsData.TotalMsElapsedOnTest / 1000, 2)}s";
                 statsForm.clicksPerSecondsAverageLabel.Text = $"Clicks per seconds average: {Math.Round(userStatsData.ClicksPerSecondsAverage, 3)}/s";
                 StatsUtilities statsUtilities = new StatsUtilities();
-
+                statsUtilities.RemoveIncorrectsValuesFromStats();
                 if (statsUtilities.GetChart())
                     statsForm.chartPanel.BackgroundImage = Image.FromFile("data\\chart.png");
                 else

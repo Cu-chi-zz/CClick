@@ -103,13 +103,47 @@ namespace CClick
                     }}
                 }}";
 
+                MessageBox.Show(qc.Config);
+                
+                Clipboard.SetData(DataFormats.Text, (Object)qc.GetShortUrl());
                 qc.ToFile("data\\chart.png");
                 Cursor.Current = Cursors.Default;
                 return true;
             }
             catch (Exception e)
             {
-                MessageBox.Show($"{e}");
+                MessageBox.Show($"{e}", "StatsUtilities.GetChart");
+                return false;
+            }
+        }
+
+        public bool RemoveIncorrectsValuesFromStats()
+        {
+            try
+            {
+                Json json = new Json();
+                List<double> clicksArray = json.ReadStatsData("data\\stats.json").ClicksPerSecondsAllTest;
+
+                clicksArray.RemoveAll(item => item == double.PositiveInfinity);
+
+                StatsData n = new StatsData();
+
+                n = new StatsData()
+                {
+                    ClicksAverage = n.ClicksAverage,
+                    TotalClicks = n.TotalClicks,
+                    TotalMsElapsedOnTest = n.TotalMsElapsedOnTest,
+                    TotalTests = n.TotalTests,
+                    ClicksPerSecondsAverage = n.ClicksPerSecondsAverage,
+                    ClicksPerSecondsAllTest = clicksArray
+                };
+
+                new Json().WriteStatsData(n, "data\\stats.json");
+                return true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"{e}", "StatsUtilities.RemoveIncorrectsValuesFromStats");
                 return false;
             }
         }
