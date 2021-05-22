@@ -49,7 +49,7 @@ namespace CClick
                     {
                         int index = clicksArray.Count - i;
 
-                        if (labelsIndex == "")
+                        if (i == 250)
                         {
                             labelsIndex += $"'{index}'";
                             dataFromArray += $"{clicksArray[index]}";
@@ -63,13 +63,12 @@ namespace CClick
                         if (i > 250)
                             break;
                     }
-
                 }
                 else
                 {
                     for (int i = 0; i < clicksArray.Count; i++)
                     {
-                        if (labelsIndex == "")
+                        if (i == 0)
                         {
                             labelsIndex += $"'{i}'";
                             dataFromArray += $"{clicksArray[i]}";

@@ -20,7 +20,7 @@ namespace CClick
         {
             try
             {
-                System.IO.File.WriteAllText(p, JsonConvert.SerializeObject(j, Formatting.Indented));
+                System.IO.File.WriteAllText(p, JsonConvert.SerializeObject(j, Formatting.None));
                 return true;
             }
             catch
@@ -59,7 +59,7 @@ namespace CClick
         {
             try
             {
-                System.IO.File.WriteAllText(p, JsonConvert.SerializeObject(j, Formatting.Indented));
+                System.IO.File.WriteAllText(p, JsonConvert.SerializeObject(j, Formatting.None));
                 return true;
             }
             catch
