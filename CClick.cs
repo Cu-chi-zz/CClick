@@ -854,5 +854,32 @@ namespace CClick
 
             updateLocalData();
         }
+
+        private void battleHealthTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!int.TryParse(battleHealthTextBox.Text, out int i) && battleHealthTextBox.Text != "")
+            {
+                MessageBox.Show("Health value must be an integer.");
+                battleHealthTextBox.Text = "";
+            }
+        }
+
+        private void battleDamageTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!int.TryParse(battleDamageTextBox.Text, out int i) && battleHealthTextBox.Text != "")
+            {
+                MessageBox.Show("Damage value must be an integer.");
+                battleDamageTextBox.Text = "";
+            }
+        }
+
+        private void typeTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (!int.TryParse(typeTextBox.Text, out int i) && battleHealthTextBox.Text != "")
+            {
+                MessageBox.Show($"{(typeCheckBox.Checked ? "Seconds value" : "Clicks limit value")} must be an integer.");
+                typeTextBox.Text = "";
+            }
+        }
     }
 }

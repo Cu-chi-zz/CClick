@@ -126,6 +126,7 @@ namespace CClick
             this.typeTextBox.Size = new System.Drawing.Size(112, 23);
             this.typeTextBox.TabIndex = 5;
             this.typeTextBox.Visible = false;
+            this.typeTextBox.TextChanged += new System.EventHandler(this.typeTextBox_TextChanged);
             // 
             // typeCheckBox
             // 
@@ -172,6 +173,7 @@ namespace CClick
             this.battleHealthTextBox.Size = new System.Drawing.Size(112, 23);
             this.battleHealthTextBox.TabIndex = 8;
             this.battleHealthTextBox.Visible = false;
+            this.battleHealthTextBox.TextChanged += new System.EventHandler(this.battleHealthTextBox_TextChanged);
             // 
             // battleDamageTextBox
             // 
@@ -183,6 +185,7 @@ namespace CClick
             this.battleDamageTextBox.Size = new System.Drawing.Size(112, 23);
             this.battleDamageTextBox.TabIndex = 9;
             this.battleDamageTextBox.Visible = false;
+            this.battleDamageTextBox.TextChanged += new System.EventHandler(this.battleDamageTextBox_TextChanged);
             // 
             // customConfigSaveButton
             // 
