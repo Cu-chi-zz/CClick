@@ -102,9 +102,6 @@ namespace CClick
                     }}
                 }}";
 
-                MessageBox.Show(qc.Config);
-                
-                Clipboard.SetData(DataFormats.Text, (Object)qc.GetShortUrl());
                 qc.ToFile("data\\chart.png");
                 Cursor.Current = Cursors.Default;
                 return true;
