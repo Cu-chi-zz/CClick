@@ -206,6 +206,7 @@ namespace CClick
             settingsForm.saveButton.Click += new EventHandler(saveButton_Click);
             settingsForm.saveLogsCheckBox.CheckedChanged += new EventHandler(SaveLogsCheckedChanged);
             settingsForm.resetButton.Click += new EventHandler(ResetDataFolder);
+            settingsForm.resetStatsButton.Click += new EventHandler(ResetStatistics);
             settingsForm.progressBarCheckbox.CheckedChanged += new EventHandler(ProgressBarCheckedChanged);
 
             if (userData.RichTextBoxSaveEnabled) // If user enabled the richtextbox save
@@ -835,6 +836,25 @@ namespace CClick
                 Directory.Delete("data", true);
                 MessageBox.Show("CClick need to restart.", "CClick", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
+            }
+        }
+
+        private void ResetStatistics(object sender, EventArgs e)
+        {
+            DialogResult resultMsgBox = MessageBox.Show("Are you really sure?", "CClick", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (resultMsgBox == DialogResult.Yes)
+            {
+                StatsData statsReset = new StatsData
+                {
+                    ClicksAverage = 0.0,
+                    TotalClicks = 0,
+                    TotalMsElapsedOnTest = 0.0,
+                    TotalTests = 0,
+                    ClicksPerSecondsAverage = 0.0,
+                    ClicksPerSecondsAllTest = null
+                };
+                jData.WriteStatsData(statsReset, "data\\stats.json");
+                updateLocalStatsData();
             }
         }
 

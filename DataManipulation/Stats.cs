@@ -52,12 +52,12 @@ namespace CClick
                         if (i == 250)
                         {
                             labelsIndex += $"'{index}'";
-                            dataFromArray += $"{clicksArray[index]}";
+                            dataFromArray += $"{clicksArray[index].ToString().Replace(',', '.')}";
                         }
                         else
                         {
                             labelsIndex += $", '{index}'";
-                            dataFromArray += $", {clicksArray[index]}";
+                            dataFromArray += $", {clicksArray[index].ToString().Replace(',', '.')}";
                         }
 
                         if (i > 250)
@@ -71,12 +71,12 @@ namespace CClick
                         if (i == 0)
                         {
                             labelsIndex += $"'{i}'";
-                            dataFromArray += $"{clicksArray[i]}";
+                            dataFromArray += $"{clicksArray[i].ToString().Replace(',', '.')}";
                         }
                         else
                         {
                             labelsIndex += $", '{i}'";
-                            dataFromArray += $", {clicksArray[i]}";
+                            dataFromArray += $", {clicksArray[i].ToString().Replace(',', '.')}";
                         }
                     }
                 }
@@ -101,7 +101,7 @@ namespace CClick
                         }},
                     }}
                 }}";
-
+                MessageBox.Show(qc.Config);
                 qc.ToFile("data\\chart.png");
                 Cursor.Current = Cursors.Default;
                 return true;

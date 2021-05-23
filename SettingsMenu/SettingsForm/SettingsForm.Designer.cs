@@ -33,6 +33,7 @@
             this.saveLogsCheckBox = new System.Windows.Forms.CheckBox();
             this.resetButton = new System.Windows.Forms.Button();
             this.progressBarCheckbox = new System.Windows.Forms.CheckBox();
+            this.resetStatsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // soundEffectCheckBox
@@ -58,7 +59,7 @@
             this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.saveButton.Location = new System.Drawing.Point(12, 245);
+            this.saveButton.Location = new System.Drawing.Point(12, 214);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(325, 28);
             this.saveButton.TabIndex = 12;
@@ -88,7 +89,7 @@
             this.resetButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
             this.resetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.resetButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.resetButton.Location = new System.Drawing.Point(12, 279);
+            this.resetButton.Location = new System.Drawing.Point(12, 248);
             this.resetButton.Name = "resetButton";
             this.resetButton.Size = new System.Drawing.Size(325, 28);
             this.resetButton.TabIndex = 14;
@@ -110,12 +111,28 @@
             this.progressBarCheckbox.Text = "Enable progress bar";
             this.progressBarCheckbox.UseVisualStyleBackColor = false;
             // 
+            // resetStatsButton
+            // 
+            this.resetStatsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.resetStatsButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.resetStatsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.resetStatsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(145)))), ((int)(((byte)(109)))));
+            this.resetStatsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.resetStatsButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.resetStatsButton.Location = new System.Drawing.Point(12, 282);
+            this.resetStatsButton.Name = "resetStatsButton";
+            this.resetStatsButton.Size = new System.Drawing.Size(325, 28);
+            this.resetStatsButton.TabIndex = 16;
+            this.resetStatsButton.Text = "Reset statistics";
+            this.resetStatsButton.UseVisualStyleBackColor = false;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(349, 319);
+            this.Controls.Add(this.resetStatsButton);
             this.Controls.Add(this.progressBarCheckbox);
             this.Controls.Add(this.resetButton);
             this.Controls.Add(this.saveLogsCheckBox);
@@ -137,5 +154,6 @@
         public System.Windows.Forms.CheckBox saveLogsCheckBox;
         public System.Windows.Forms.Button resetButton;
         public System.Windows.Forms.CheckBox progressBarCheckbox;
+        public System.Windows.Forms.Button resetStatsButton;
     }
 }
