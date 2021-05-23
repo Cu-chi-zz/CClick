@@ -101,7 +101,7 @@ namespace CClick
                         }},
                     }}
                 }}";
-
+                
                 qc.ToFile("data\\chart.png");
                 Cursor.Current = Cursors.Default;
                 return true;
