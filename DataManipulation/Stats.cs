@@ -113,7 +113,7 @@ namespace CClick
             }
         }
 
-        public bool RemoveIncorrectsValuesFromStats()
+        public bool RemoveIncorrectsValuesFromStats(StatsData uData)
         {
             try
             {
@@ -126,11 +126,11 @@ namespace CClick
 
                 n = new StatsData()
                 {
-                    ClicksAverage = n.ClicksAverage,
-                    TotalClicks = n.TotalClicks,
-                    TotalMsElapsedOnTest = n.TotalMsElapsedOnTest,
-                    TotalTests = n.TotalTests,
-                    ClicksPerSecondsAverage = n.ClicksPerSecondsAverage,
+                    ClicksAverage = uData.ClicksAverage,
+                    TotalClicks = uData.TotalClicks,
+                    TotalMsElapsedOnTest = uData.TotalMsElapsedOnTest,
+                    TotalTests = uData.TotalTests,
+                    ClicksPerSecondsAverage = uData.ClicksPerSecondsAverage,
                     ClicksPerSecondsAllTest = clicksArray
                 };
 
