@@ -120,6 +120,9 @@ namespace CClick
                 Json json = new Json();
                 List<double> clicksArray = json.ReadStatsData("data\\stats.json").ClicksPerSecondsAllTest;
 
+                if (clicksArray == null)
+                    return true;
+
                 clicksArray.RemoveAll(item => item == double.PositiveInfinity);
 
                 StatsData n = new StatsData();
