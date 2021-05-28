@@ -88,6 +88,20 @@
         gDtoS3+QfPoC8+PfKsGMpVoAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="bestScoresMenuButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JQAAgIYAAPaHAAB/xgAAcJEAAPcyAAA5GAAAE8C1M6AtAAAACXBIWXMAAA9fAAAPXwHXitrJAAAAB3RJ
+        TUUH5QUcEw4fVZl6lAAAAYBJREFUOE9t08srRVEUx/HrWVJElEyUgWLA0HugPEop/gZMDJRQom65MjFB
+        dOURycTAjFAmijEGlBKRiBh4DD2/v2Odc/ftWvWpffbea5179l43NBKOuNJQigq0oNloXA6tpSLIcZPz
+        MI5NzOMV7+YFc9jCKHIRV6AMu/jBGWbwYM9yh1mc27NeUoKgQDuUqEW9bRlhqJBovIY3aM8JWhEUyMEk
+        nqAN+6iCv16PQ2jtERPIQtwZ1GIP37hBL5KQjH7c4gv61Ep4eW4B3YA2XuED69Avy8cGPnEBFU7BXwGF
+        /4BiaLM2rqIT3dD3a05FixBLVvgTpgnTiGIH29ANTKEBwd64cBY6sIJn6NpEh7uENiQmK2whE8M4xT10
+        WD3Q6R9hCBmwLCc0CR1aBNdQ0iC6bHwJdWE2LMsJTSIdAziAktS+eqvG6o0+6LYsywlNmjqo+9Rtamfd
+        /7HNVcPblxD+AtQ4+veNYRELNm6EGuv/Agp/0RSiBnprgc15YhEK/QJ996FbKFmewgAAAABJRU5ErkJg
+        gg==
+</value>
+  </data>
   <metadata name="$this.Locked" type="System.Boolean, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
     <value>True</value>
   </metadata>

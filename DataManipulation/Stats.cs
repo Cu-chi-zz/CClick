@@ -14,6 +14,7 @@ namespace CClick
         public int TotalTests { get; set; }
         public double ClicksPerSecondsAverage { get; set; }
         public List<double> ClicksPerSecondsAllTest { get; set; }
+        public Dictionary<string, double> BestScores { get; set; }
     }
 
     public class StatsUtilities

@@ -34,6 +34,7 @@
             this.resetButton = new System.Windows.Forms.Button();
             this.progressBarCheckbox = new System.Windows.Forms.CheckBox();
             this.resetStatsButton = new System.Windows.Forms.Button();
+            this.saveBestCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // soundEffectCheckBox
@@ -126,12 +127,28 @@
             this.resetStatsButton.Text = "Reset statistics";
             this.resetStatsButton.UseVisualStyleBackColor = false;
             // 
+            // saveBestCheckBox
+            // 
+            this.saveBestCheckBox.AutoSize = true;
+            this.saveBestCheckBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
+            this.saveBestCheckBox.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.saveBestCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
+            this.saveBestCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveBestCheckBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.saveBestCheckBox.Location = new System.Drawing.Point(12, 87);
+            this.saveBestCheckBox.Name = "saveBestCheckBox";
+            this.saveBestCheckBox.Size = new System.Drawing.Size(179, 19);
+            this.saveBestCheckBox.TabIndex = 17;
+            this.saveBestCheckBox.Text = "Save best score (for each test)";
+            this.saveBestCheckBox.UseVisualStyleBackColor = false;
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(349, 319);
+            this.Controls.Add(this.saveBestCheckBox);
             this.Controls.Add(this.resetStatsButton);
             this.Controls.Add(this.progressBarCheckbox);
             this.Controls.Add(this.resetButton);
@@ -155,5 +172,6 @@
         public System.Windows.Forms.Button resetButton;
         public System.Windows.Forms.CheckBox progressBarCheckbox;
         public System.Windows.Forms.Button resetStatsButton;
+        public System.Windows.Forms.CheckBox saveBestCheckBox;
     }
 }

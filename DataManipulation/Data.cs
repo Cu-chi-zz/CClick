@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace CClick
 {
@@ -97,5 +98,6 @@ namespace CClick
         public string[] CustomConfig { get; set; }
         public bool RichTextBoxSaveEnabled { get; set; }
         public string RichTextBoxContent { get; set; }
+        public bool SaveBestScoreForEachTest { get; set; }
     }
 }

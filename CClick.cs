@@ -9,6 +9,7 @@ using System.Net;
 using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
+using CClick.BestScoresMenu;
 
 namespace CClick
 {
@@ -23,6 +24,7 @@ namespace CClick
         private int typeModeEnteredValue = 0;
         private bool firstClickValuesCheck = false;
         private bool maximumProgressBarChecked = false;
+        private string currentTestName = "";
 
         #endregion
 
@@ -35,6 +37,7 @@ namespace CClick
         private StatsData userStatsData = new StatsData();
         private SettingsForm settingsForm = new SettingsForm();
         private StatsForm statsForm = new StatsForm();
+        private MenuBestScores bestScoresForm = new MenuBestScores();
 
         public CClick()
         {
@@ -110,7 +113,8 @@ namespace CClick
                         DefaultTest = -1,
                         CustomConfig = null,
                         RichTextBoxSaveEnabled = false,
-                        RichTextBoxContent = {}
+                        RichTextBoxContent = {},
+                        SaveBestScoreForEachTest = true
                     };
 
                     Directory.CreateDirectory("data");
@@ -173,7 +177,8 @@ namespace CClick
                     TotalMsElapsedOnTest = 0,
                     TotalTests = 0,
                     ClicksPerSecondsAverage = 0,
-                    ClicksPerSecondsAllTest = {}
+                    ClicksPerSecondsAllTest = {},
+                    BestScores = null
                 };
 
                 if (!jData.WriteStatsData(json, "data\\stats.json"))
@@ -208,6 +213,7 @@ namespace CClick
             settingsForm.resetButton.Click += new EventHandler(ResetDataFolder);
             settingsForm.resetStatsButton.Click += new EventHandler(ResetStatistics);
             settingsForm.progressBarCheckbox.CheckedChanged += new EventHandler(ProgressBarCheckedChanged);
+            settingsForm.saveBestCheckBox.CheckedChanged += new EventHandler(SaveBestScoreCheckedChanged);
 
             if (userData.RichTextBoxSaveEnabled) // If user enabled the richtextbox save
             {
@@ -355,14 +361,17 @@ namespace CClick
 
             if (comboBox.SelectedIndex == 0) // 10 Clicks
             {
+                currentTestName = "10-clicks";
                 clickLabel.Text = 10 - clickCounter + " left";
             }
             else if (comboBox.SelectedIndex == 1) // 100 clicks
             {
+                currentTestName = "100-clicks";
                 clickLabel.Text = 100 - clickCounter + " left";
             }
             else if (comboBox.SelectedIndex == 2) // 1000 clicks
             {
+                currentTestName = "1000-clicks";
                 clickLabel.Text = 1000 - clickCounter + " left";
             }
             else if ((comboBox.SelectedIndex == 5) && (!typeCheckBox.Checked) && (!battleTypeCheckBox.Checked)) // Custom with clicks mode
@@ -400,16 +409,44 @@ namespace CClick
             timer.Dispose();
             firstClickValuesCheck = false;
             maximumProgressBarChecked = false;
+            double thisTestCps = Math.Round(ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds), 3);
 
             List<double> cpsAllTest;
             if (userStatsData.ClicksPerSecondsAllTest != null)
             {
                 cpsAllTest = new List<double>(userStatsData.ClicksPerSecondsAllTest);
-                cpsAllTest.Add(Math.Round(ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds), 1));
+                cpsAllTest.Add(thisTestCps);
             }
             else
             {
-                cpsAllTest = new List<double>(new[] { Math.Round(ToClickPerSeconds(clickCounter, watcher.ElapsedMilliseconds), 1) });
+                cpsAllTest = new List<double>(new[] { thisTestCps });
+            }
+
+
+            Dictionary<string, double> bestScores;
+            if (userStatsData.BestScores != null)
+            {
+                bestScores = userStatsData.BestScores;
+                double currentlyInArray;
+                if (bestScores.ContainsKey(currentTestName) && bestScores.TryGetValue(currentTestName, out currentlyInArray))
+                {
+                    if (currentlyInArray < thisTestCps)
+                    {
+                        bestScores.Remove(currentTestName);
+                        bestScores.Add(currentTestName, thisTestCps);
+                    }
+                }
+                else
+                {
+                    bestScores.Add(currentTestName, thisTestCps);
+                }
+            }
+            else
+            {
+                bestScores = new Dictionary<string, double>
+                {
+                    { currentTestName, thisTestCps }
+                };
             }
 
             StatsData newStatsData = new StatsData
@@ -419,7 +456,8 @@ namespace CClick
                 TotalMsElapsedOnTest = userStatsData.TotalMsElapsedOnTest + watcher.ElapsedMilliseconds,
                 TotalTests = userStatsData.TotalTests + 1,
                 ClicksPerSecondsAverage = ToClickPerSeconds(userStatsData.TotalClicks + clickCounter, (long)userStatsData.TotalMsElapsedOnTest + watcher.ElapsedMilliseconds),
-                ClicksPerSecondsAllTest = cpsAllTest
+                ClicksPerSecondsAllTest = cpsAllTest,
+                BestScores = bestScores
             };
 
             jData.WriteStatsData(newStatsData, "data\\stats.json");
@@ -437,6 +475,7 @@ namespace CClick
 
                 if (comboBox.SelectedIndex == 3)
                 {
+                    currentTestName = "10-secs";
                     if (watcher.ElapsedMilliseconds >= 10000)
                     {
                         long ms = watcher.ElapsedMilliseconds;
@@ -452,6 +491,7 @@ namespace CClick
                 }
                 else if (comboBox.SelectedIndex == 4)
                 {
+                    currentTestName = "1-sec";
                     if (watcher.ElapsedMilliseconds >= 1000)
                     {
                         long ms = watcher.ElapsedMilliseconds;
@@ -653,7 +693,8 @@ namespace CClick
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
-                RichTextBoxContent = userData.RichTextBoxContent
+                RichTextBoxContent = userData.RichTextBoxContent,
+                SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
             jData.WriteData(dateToWrite, "data\\data.json");
@@ -670,7 +711,8 @@ namespace CClick
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = settingsForm.saveLogsCheckBox.Checked,
-                RichTextBoxContent = userData.RichTextBoxContent
+                RichTextBoxContent = userData.RichTextBoxContent,
+                SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
             jData.WriteData(dateToWrite, "data\\data.json");
@@ -687,7 +729,8 @@ namespace CClick
                 DefaultTest = comboBox.SelectedIndex,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
-                RichTextBoxContent = userData.RichTextBoxContent
+                RichTextBoxContent = userData.RichTextBoxContent,
+                SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
             if (!jData.WriteData(dateToWrite, "data\\data.json"))
@@ -715,7 +758,8 @@ namespace CClick
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = config,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
-                RichTextBoxContent = userData.RichTextBoxContent
+                RichTextBoxContent = userData.RichTextBoxContent,
+                SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
             if (!jData.WriteData(dateToWrite, "data\\data.json"))
@@ -769,7 +813,7 @@ namespace CClick
             SettingsFormUtilities settingsFormUtilities = new SettingsFormUtilities();
             if (!settingsForm.Visible)
             {
-                settingsFormUtilities.InitializeSettingsFormParameters(settingsForm, userData.EnableSound, userData.RichTextBoxSaveEnabled, userData.EnableProgressBar);
+                settingsFormUtilities.InitializeSettingsFormParameters(settingsForm, userData.EnableSound, userData.RichTextBoxSaveEnabled, userData.EnableProgressBar, userData.SaveBestScoreForEachTest);
                 settingsForm.ShowDialog();
             }
             else
@@ -811,7 +855,8 @@ namespace CClick
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig,
                 RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
-                RichTextBoxContent = userData.RichTextBoxContent + content
+                RichTextBoxContent = userData.RichTextBoxContent + content,
+                SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
             if (!jData.WriteData(dateToWrite, "data//data.json"))
@@ -851,7 +896,8 @@ namespace CClick
                     TotalMsElapsedOnTest = 0.0,
                     TotalTests = 0,
                     ClicksPerSecondsAverage = 0.0,
-                    ClicksPerSecondsAllTest = null
+                    ClicksPerSecondsAllTest = null,
+                    BestScores = null
                 };
                 jData.WriteStatsData(statsReset, "data\\stats.json");
                 updateLocalStatsData();
@@ -866,8 +912,9 @@ namespace CClick
                 EnableProgressBar = settingsForm.progressBarCheckbox.Checked,
                 DefaultTest = userData.DefaultTest,
                 CustomConfig = userData.CustomConfig,
-                RichTextBoxSaveEnabled = settingsForm.saveLogsCheckBox.Checked,
-                RichTextBoxContent = userData.RichTextBoxContent
+                RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
+                RichTextBoxContent = userData.RichTextBoxContent,
+                SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
             jData.WriteData(dateToWrite, "data//data.json");
@@ -900,6 +947,49 @@ namespace CClick
                 MessageBox.Show($"{(typeCheckBox.Checked ? "Seconds value" : "Clicks limit value")} must be an integer.");
                 typeTextBox.Text = "";
             }
+        }
+
+        private void SaveBestScoreCheckedChanged(object sender, EventArgs e)
+        {
+            Data dateToWrite = new Data
+            {
+                EnableSound = userData.EnableSound,
+                EnableProgressBar = userData.EnableProgressBar,
+                DefaultTest = userData.DefaultTest,
+                CustomConfig = userData.CustomConfig,
+                RichTextBoxSaveEnabled = userData.RichTextBoxSaveEnabled,
+                RichTextBoxContent = userData.RichTextBoxContent,
+                SaveBestScoreForEachTest = settingsForm.saveBestCheckBox.Checked
+            };
+
+            jData.WriteData(dateToWrite, "data//data.json");
+
+            updateLocalData();
+        }
+
+        private void bestScoresMenuButton_Click(object sender, EventArgs e)
+        {
+            if (!bestScoresForm.Visible)
+            {
+                if (userStatsData.BestScores.TryGetValue("10-clicks", out double cps10clicks))
+                    bestScoresForm.clicks10.Text = $"10 clicks: {cps10clicks} click/s";
+
+                if (userStatsData.BestScores.TryGetValue("100-clicks", out double cps100clicks))
+                    bestScoresForm.clicks100.Text = $"100 clicks: {cps100clicks} click/s";
+
+                if (userStatsData.BestScores.TryGetValue("1000-clicks", out double cps1000clicks))
+                    bestScoresForm.clicks1000.Text = $"1000 clicks: {cps1000clicks} click/s";
+
+                if (userStatsData.BestScores.TryGetValue("1-sec", out double cps1second))
+                    bestScoresForm.sec1.Text = $"1 second: {cps1second} click/s";
+
+                if (userStatsData.BestScores.TryGetValue("10-secs", out double cps10seconds))
+                    bestScoresForm.sec10.Text = $"10 seconds: {cps10seconds} click/s";
+
+                bestScoresForm.ShowDialog();
+            }
+            else
+                bestScoresForm.Hide();
         }
     }
 }

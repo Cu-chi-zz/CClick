@@ -45,6 +45,7 @@ namespace CClick
             this.settingsIcon = new System.Windows.Forms.Panel();
             this.statsButton = new System.Windows.Forms.Panel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.bestScoresMenuButton = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // clickableButton
@@ -247,12 +248,22 @@ namespace CClick
             this.progressBar.TabIndex = 16;
             this.progressBar.Visible = false;
             // 
+            // bestScoresMenuButton
+            // 
+            this.bestScoresMenuButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bestScoresMenuButton.BackgroundImage")));
+            this.bestScoresMenuButton.Location = new System.Drawing.Point(585, 6);
+            this.bestScoresMenuButton.Name = "bestScoresMenuButton";
+            this.bestScoresMenuButton.Size = new System.Drawing.Size(16, 16);
+            this.bestScoresMenuButton.TabIndex = 17;
+            this.bestScoresMenuButton.Click += new System.EventHandler(this.bestScoresMenuButton_Click);
+            // 
             // CClick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(659, 451);
+            this.Controls.Add(this.bestScoresMenuButton);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.statsButton);
             this.Controls.Add(this.settingsIcon);
@@ -298,6 +309,7 @@ namespace CClick
         private System.Windows.Forms.Panel settingsIcon;
         private System.Windows.Forms.Panel statsButton;
         private System.Windows.Forms.ProgressBar progressBar;
+        private System.Windows.Forms.Panel bestScoresMenuButton;
     }
 }
 
