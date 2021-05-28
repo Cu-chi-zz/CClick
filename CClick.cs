@@ -971,20 +971,23 @@ namespace CClick
         {
             if (!bestScoresForm.Visible)
             {
-                if (userStatsData.BestScores.TryGetValue("10-clicks", out double cps10clicks))
-                    bestScoresForm.clicks10.Text = $"10 clicks: {cps10clicks} click/s";
+                if (userStatsData.BestScores != null)
+                {
+                    if (userStatsData.BestScores.TryGetValue("10-clicks", out double cps10clicks))
+                        bestScoresForm.clicks10.Text = $"10 clicks: {cps10clicks} click/s";
 
-                if (userStatsData.BestScores.TryGetValue("100-clicks", out double cps100clicks))
-                    bestScoresForm.clicks100.Text = $"100 clicks: {cps100clicks} click/s";
+                    if (userStatsData.BestScores.TryGetValue("100-clicks", out double cps100clicks))
+                        bestScoresForm.clicks100.Text = $"100 clicks: {cps100clicks} click/s";
 
-                if (userStatsData.BestScores.TryGetValue("1000-clicks", out double cps1000clicks))
-                    bestScoresForm.clicks1000.Text = $"1000 clicks: {cps1000clicks} click/s";
+                    if (userStatsData.BestScores.TryGetValue("1000-clicks", out double cps1000clicks))
+                        bestScoresForm.clicks1000.Text = $"1000 clicks: {cps1000clicks} click/s";
 
-                if (userStatsData.BestScores.TryGetValue("1-sec", out double cps1second))
-                    bestScoresForm.sec1.Text = $"1 second: {cps1second} click/s";
+                    if (userStatsData.BestScores.TryGetValue("1-sec", out double cps1second))
+                        bestScoresForm.sec1.Text = $"1 second: {cps1second} click/s";
 
-                if (userStatsData.BestScores.TryGetValue("10-secs", out double cps10seconds))
-                    bestScoresForm.sec10.Text = $"10 seconds: {cps10seconds} click/s";
+                    if (userStatsData.BestScores.TryGetValue("10-secs", out double cps10seconds))
+                        bestScoresForm.sec10.Text = $"10 seconds: {cps10seconds} click/s";
+                }
 
                 bestScoresForm.ShowDialog();
             }
