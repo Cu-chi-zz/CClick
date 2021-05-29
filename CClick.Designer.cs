@@ -46,6 +46,7 @@ namespace CClick
             this.statsButton = new System.Windows.Forms.Panel();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.bestScoresMenuButton = new System.Windows.Forms.Panel();
+            this.stopTestButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // clickableButton
@@ -257,12 +258,31 @@ namespace CClick
             this.bestScoresMenuButton.TabIndex = 17;
             this.bestScoresMenuButton.Click += new System.EventHandler(this.bestScoresMenuButton_Click);
             // 
+            // stopTestButton
+            // 
+            this.stopTestButton.BackColor = System.Drawing.Color.Red;
+            this.stopTestButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(224)))), ((int)(((byte)(226)))));
+            this.stopTestButton.FlatAppearance.BorderSize = 0;
+            this.stopTestButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.IndianRed;
+            this.stopTestButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkRed;
+            this.stopTestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.stopTestButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.stopTestButton.Location = new System.Drawing.Point(12, 2);
+            this.stopTestButton.Name = "stopTestButton";
+            this.stopTestButton.Size = new System.Drawing.Size(65, 22);
+            this.stopTestButton.TabIndex = 18;
+            this.stopTestButton.Text = "STOP";
+            this.stopTestButton.UseVisualStyleBackColor = false;
+            this.stopTestButton.Visible = false;
+            this.stopTestButton.Click += new System.EventHandler(this.stopTestButton_Click);
+            // 
             // CClick
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(42)))), ((int)(((byte)(58)))));
             this.ClientSize = new System.Drawing.Size(659, 451);
+            this.Controls.Add(this.stopTestButton);
             this.Controls.Add(this.bestScoresMenuButton);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.statsButton);
@@ -310,6 +330,7 @@ namespace CClick
         private System.Windows.Forms.Panel statsButton;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Panel bestScoresMenuButton;
+        private System.Windows.Forms.Button stopTestButton;
     }
 }
 
