@@ -103,6 +103,7 @@ namespace CClick.BestScoresMenu
             this.Controls.Add(this.clicks100);
             this.Controls.Add(this.clicks10);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "MenuBestScores";
             this.Text = "Best Scores";
             this.ResumeLayout(false);
