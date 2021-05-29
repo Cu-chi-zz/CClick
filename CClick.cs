@@ -44,6 +44,19 @@ namespace CClick
         {
             InitializeComponent();
 
+            #region Check if CClick is already started
+            Process currentProcess = Process.GetCurrentProcess();
+            Process[] procColl = Process.GetProcessesByName(currentProcess.ProcessName);
+            foreach (Process p in procColl)
+            {
+                if (p.Id != currentProcess.Id)
+                {
+                    MessageBox.Show("CClick is already opened", "CClick", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Close();
+                }
+            }
+            #endregion
+
             #region Version Check
             string latestVersion = new WebClient().DownloadString("https://pastebin.com/raw/vNb10fgb");
 
