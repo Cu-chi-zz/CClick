@@ -38,6 +38,7 @@ namespace CClick
         private SettingsForm settingsForm = new SettingsForm();
         private StatsForm statsForm = new StatsForm();
         private MenuBestScores bestScoresForm = new MenuBestScores();
+        private SettingsFormUtilities settingsFormUtilities = new SettingsFormUtilities();
 
         public CClick()
         {
@@ -810,40 +811,45 @@ namespace CClick
 
         private void settingsIcon_Click(object sender, EventArgs e)
         {
-            SettingsFormUtilities settingsFormUtilities = new SettingsFormUtilities();
-            if (!settingsForm.Visible)
+            if (IsClientNotDoingTest())
             {
-                settingsFormUtilities.InitializeSettingsFormParameters(settingsForm, userData.EnableSound, userData.RichTextBoxSaveEnabled, userData.EnableProgressBar, userData.SaveBestScoreForEachTest);
-                settingsForm.ShowDialog();
+                if (!settingsForm.Visible)
+                {
+                    settingsFormUtilities.InitializeSettingsFormParameters(settingsForm, userData.EnableSound, userData.RichTextBoxSaveEnabled, userData.EnableProgressBar, userData.SaveBestScoreForEachTest);
+                    settingsForm.ShowDialog();
+                }
+                else
+                    settingsForm.Hide();
             }
-            else
-                settingsForm.Hide();
         }
 
         private void statsButton_Click(object sender, EventArgs e)
         {
-            if (!statsForm.Visible)
+            if (IsClientNotDoingTest())
             {
-                if (statsForm.chartPanel.BackgroundImage != null)
-                    statsForm.chartPanel.BackgroundImage.Dispose();
+                if (!statsForm.Visible)
+                {
+                    if (statsForm.chartPanel.BackgroundImage != null)
+                        statsForm.chartPanel.BackgroundImage.Dispose();
 
-                Cursor.Current = Cursors.WaitCursor;
-                statsForm.totalClicksLabel.Text = $"Total Clicks: {userStatsData.TotalClicks}";
-                statsForm.totalTestsLabel.Text = $"Total Tests: {userStatsData.TotalTests}";
-                statsForm.clicksAverageLabel.Text = $"Clicks per test average: {Math.Round(userStatsData.ClicksAverage, 3)}";
-                statsForm.timeElapsedLabel.Text = $"Time elapsed on tests: {Math.Round(userStatsData.TotalMsElapsedOnTest / 1000, 2)}s";
-                statsForm.clicksPerSecondsAverageLabel.Text = $"Clicks per seconds average: {Math.Round(userStatsData.ClicksPerSecondsAverage, 3)}/s";
-                StatsUtilities statsUtilities = new StatsUtilities();
-                statsUtilities.RemoveIncorrectsValuesFromStats(userStatsData);
-                if (statsUtilities.GetChart())
-                    statsForm.chartPanel.BackgroundImage = Image.FromFile("data\\chart.png");
+                    Cursor.Current = Cursors.WaitCursor;
+                    statsForm.totalClicksLabel.Text = $"Total Clicks: {userStatsData.TotalClicks}";
+                    statsForm.totalTestsLabel.Text = $"Total Tests: {userStatsData.TotalTests}";
+                    statsForm.clicksAverageLabel.Text = $"Clicks per test average: {Math.Round(userStatsData.ClicksAverage, 3)}";
+                    statsForm.timeElapsedLabel.Text = $"Time elapsed on tests: {Math.Round(userStatsData.TotalMsElapsedOnTest / 1000, 2)}s";
+                    statsForm.clicksPerSecondsAverageLabel.Text = $"Clicks per seconds average: {Math.Round(userStatsData.ClicksPerSecondsAverage, 3)}/s";
+                    StatsUtilities statsUtilities = new StatsUtilities();
+                    statsUtilities.RemoveIncorrectsValuesFromStats(userStatsData);
+                    if (statsUtilities.GetChart())
+                        statsForm.chartPanel.BackgroundImage = Image.FromFile("data\\chart.png");
+                    else
+                        MessageBox.Show("An error occured to generate the chart: can't display cps chart.\nContact support or create issue on github", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    statsForm.ShowDialog();
+                    Cursor.Current = Cursors.Default;
+                }
                 else
-                    MessageBox.Show("An error occured to generate the chart: can't display cps chart.\nContact support or create issue on github", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                statsForm.ShowDialog();
-                Cursor.Current = Cursors.Default;
+                    statsForm.Hide();
             }
-            else
-                statsForm.Hide();
         }
 
         private void AddRichTextBoxSaveContent(string content)
@@ -969,30 +975,42 @@ namespace CClick
 
         private void bestScoresMenuButton_Click(object sender, EventArgs e)
         {
-            if (!bestScoresForm.Visible)
+            if (IsClientNotDoingTest())
             {
-                if (userStatsData.BestScores != null)
+                if (!bestScoresForm.Visible)
                 {
-                    if (userStatsData.BestScores.TryGetValue("10-clicks", out double cps10clicks))
-                        bestScoresForm.clicks10.Text = $"10 clicks: {cps10clicks} click/s";
+                    if (userStatsData.BestScores != null)
+                    {
+                        if (userStatsData.BestScores.TryGetValue("10-clicks", out double cps10clicks))
+                            bestScoresForm.clicks10.Text = $"10 clicks: {cps10clicks} click/s";
 
-                    if (userStatsData.BestScores.TryGetValue("100-clicks", out double cps100clicks))
-                        bestScoresForm.clicks100.Text = $"100 clicks: {cps100clicks} click/s";
+                        if (userStatsData.BestScores.TryGetValue("100-clicks", out double cps100clicks))
+                            bestScoresForm.clicks100.Text = $"100 clicks: {cps100clicks} click/s";
 
-                    if (userStatsData.BestScores.TryGetValue("1000-clicks", out double cps1000clicks))
-                        bestScoresForm.clicks1000.Text = $"1000 clicks: {cps1000clicks} click/s";
+                        if (userStatsData.BestScores.TryGetValue("1000-clicks", out double cps1000clicks))
+                            bestScoresForm.clicks1000.Text = $"1000 clicks: {cps1000clicks} click/s";
 
-                    if (userStatsData.BestScores.TryGetValue("1-sec", out double cps1second))
-                        bestScoresForm.sec1.Text = $"1 second: {cps1second} click/s";
+                        if (userStatsData.BestScores.TryGetValue("1-sec", out double cps1second))
+                            bestScoresForm.sec1.Text = $"1 second: {cps1second} click/s";
 
-                    if (userStatsData.BestScores.TryGetValue("10-secs", out double cps10seconds))
-                        bestScoresForm.sec10.Text = $"10 seconds: {cps10seconds} click/s";
+                        if (userStatsData.BestScores.TryGetValue("10-secs", out double cps10seconds))
+                            bestScoresForm.sec10.Text = $"10 seconds: {cps10seconds} click/s";
+                    }
+
+                    bestScoresForm.ShowDialog();
                 }
-
-                bestScoresForm.ShowDialog();
+                else
+                    bestScoresForm.Hide();
             }
+        }
+
+        private bool IsClientNotDoingTest()
+        {
+            if (isTestRunning)
+                System.Media.SystemSounds.Exclamation.Play();
             else
-                bestScoresForm.Hide();
+                return true;
+            return false;
         }
     }
 }
