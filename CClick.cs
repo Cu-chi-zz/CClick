@@ -17,7 +17,7 @@ namespace CClick
     {
         #region Default values which are gonna be modified on test launched
 
-        private bool running = false;
+        private bool isTestRunning = false;
         private int clickCounter = 0;
         private int battleModeHealth = 0;
         private int battleModeDamage = 0;
@@ -238,7 +238,7 @@ namespace CClick
                 }
             }
 
-            if (!running)
+            if (!isTestRunning)
             {
                 if (comboBox.SelectedIndex != -1)
                     SetupOnNewRun();
@@ -351,7 +351,7 @@ namespace CClick
         {
             clickableButton.Text = "CLICK";
             clickCounter = 1;
-            running = true;
+            isTestRunning = true;
             watcher.Reset();
             watcher.Start();
             timer = new System.Timers.Timer();
@@ -403,7 +403,7 @@ namespace CClick
         {
             watcher.Stop();
             clickableButton.Text = "START";
-            running = false;
+            isTestRunning = false;
             timer.Enabled = false;
             timer.Stop();
             timer.Dispose();
@@ -924,7 +924,7 @@ namespace CClick
 
         private void battleHealthTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!int.TryParse(battleHealthTextBox.Text, out int i) && battleHealthTextBox.Text != "")
+            if (!int.TryParse(battleHealthTextBox.Text, out _) && battleHealthTextBox.Text != "")
             {
                 MessageBox.Show("Health value must be an integer.");
                 battleHealthTextBox.Text = "";
@@ -933,7 +933,7 @@ namespace CClick
 
         private void battleDamageTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!int.TryParse(battleDamageTextBox.Text, out int i) && battleHealthTextBox.Text != "")
+            if (!int.TryParse(battleDamageTextBox.Text, out _) && battleHealthTextBox.Text != "")
             {
                 MessageBox.Show("Damage value must be an integer.");
                 battleDamageTextBox.Text = "";
@@ -942,7 +942,7 @@ namespace CClick
 
         private void typeTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (!int.TryParse(typeTextBox.Text, out int i) && battleHealthTextBox.Text != "")
+            if (!int.TryParse(typeTextBox.Text, out _) && battleHealthTextBox.Text != "")
             {
                 MessageBox.Show($"{(typeCheckBox.Checked ? "Seconds value" : "Clicks limit value")} must be an integer.");
                 typeTextBox.Text = "";
