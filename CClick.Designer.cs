@@ -267,7 +267,7 @@ namespace CClick
             this.stopTestButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DarkRed;
             this.stopTestButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.stopTestButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.stopTestButton.Location = new System.Drawing.Point(12, 2);
+            this.stopTestButton.Location = new System.Drawing.Point(13, 2);
             this.stopTestButton.Name = "stopTestButton";
             this.stopTestButton.Size = new System.Drawing.Size(65, 22);
             this.stopTestButton.TabIndex = 18;
