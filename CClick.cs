@@ -358,6 +358,81 @@ namespace CClick
                 {
                     MessageBox.Show("Please, select a test!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+                progressBar.Invoke(new Action(() => {
+                    switch (comboBox.SelectedIndex)
+                    {
+                        case 0: // If 10 clicks test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 10;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = clickCounter;
+                        break;
+                        case 1: // If 100 clicks test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 100;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = clickCounter;
+                        break;
+                        case 2: // If 1000 clicks test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 1000;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = clickCounter;
+                        break;
+                        case 3: // If 10 sec test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 10;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
+                        break;
+                        case 4: // If 1 sec test
+                        if (!maximumProgressBarChecked)
+                        {
+                            progressBar.Maximum = 1;
+                            maximumProgressBarChecked = true;
+                        }
+                        progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
+                        break;
+                        case 5: // If is a custom test
+                        if (typeCheckBox.Checked)
+                        {
+                            if (!maximumProgressBarChecked)
+                            {
+                                progressBar.Maximum = int.Parse(typeTextBox.Text);
+                                maximumProgressBarChecked = true;
+                            }
+                            progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
+                        }
+                        else if ((!typeCheckBox.Checked) && (!battleTypeCheckBox.Checked))
+                        {
+                            if (!maximumProgressBarChecked)
+                            {
+                                progressBar.Maximum = typeModeEnteredValue;
+                                maximumProgressBarChecked = true;
+                            }
+                            progressBar.Value = clickCounter;
+                        }
+                        else if (battleTypeCheckBox.Checked)
+                        {
+                            if (!maximumProgressBarChecked)
+                            {
+                                progressBar.Maximum = battleModeHealth;
+                                maximumProgressBarChecked = true;
+                            }
+                            progressBar.Value = progressBar.Maximum - battleModeHealth;
+                        }
+                        break;
+                    }
+                }));
             }
         }
 
@@ -572,81 +647,6 @@ namespace CClick
                     }
                 }
             }));
-
-            progressBar.Invoke(new Action(() => {
-                switch (comboBox.SelectedIndex)
-                {
-                    case 0: // If 10 clicks test
-                        if (!maximumProgressBarChecked)
-                        {
-                            progressBar.Maximum = 10;
-                            maximumProgressBarChecked = true;
-                        }
-                        progressBar.Value = clickCounter;
-                        break;
-                    case 1: // If 100 clicks test
-                        if (!maximumProgressBarChecked)
-                        {
-                            progressBar.Maximum = 100;
-                            maximumProgressBarChecked = true;
-                        }
-                        progressBar.Value = clickCounter;
-                        break;
-                    case 2: // If 1000 clicks test
-                        if (!maximumProgressBarChecked)
-                        {
-                            progressBar.Maximum = 1000;
-                            maximumProgressBarChecked = true;
-                        }
-                        progressBar.Value = clickCounter;
-                        break;
-                    case 3: // If 10 sec test
-                        if (!maximumProgressBarChecked)
-                        {
-                            progressBar.Maximum = 10;
-                            maximumProgressBarChecked = true;
-                        }
-                        progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
-                        break;
-                    case 4: // If 1 sec test
-                        if (!maximumProgressBarChecked)
-                        {
-                            progressBar.Maximum = 1;
-                            maximumProgressBarChecked = true;
-                        }
-                        progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
-                        break;
-                    case 5: // If is a custom test
-                        if (typeCheckBox.Checked)
-                        {
-                            if (!maximumProgressBarChecked)
-                            {
-                                progressBar.Maximum = int.Parse(typeTextBox.Text);
-                                maximumProgressBarChecked = true;
-                            }
-                            progressBar.Value = (int)watcher.Elapsed.TotalSeconds;
-                        }
-                        else if ((!typeCheckBox.Checked) && (!battleTypeCheckBox.Checked))
-                        {
-                            if (!maximumProgressBarChecked)
-                            {
-                                progressBar.Maximum = typeModeEnteredValue;
-                                maximumProgressBarChecked = true;
-                            }
-                            progressBar.Value = clickCounter;
-                        }
-                        else if (battleTypeCheckBox.Checked)
-                        {
-                            if (!maximumProgressBarChecked)
-                            {
-                                progressBar.Maximum = battleModeHealth;
-                                maximumProgressBarChecked = true;
-                            }
-                            progressBar.Value = progressBar.Maximum - battleModeHealth;
-                        }
-                        break;
-                }
-            }));
         }
 
         private static double ToClickPerSeconds(int totalClicks, long msElapsed)
@@ -770,7 +770,7 @@ namespace CClick
             updateLocalData();
         }
 
-        private void saveButton_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e) 
         {
             Data dateToWrite = new Data
             {

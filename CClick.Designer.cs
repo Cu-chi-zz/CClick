@@ -103,20 +103,20 @@ namespace CClick
             this.timeLabel.AutoSize = true;
             this.timeLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.timeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
-            this.timeLabel.Location = new System.Drawing.Point(14, 171);
+            this.timeLabel.Location = new System.Drawing.Point(13, 173);
             this.timeLabel.Name = "timeLabel";
             this.timeLabel.Size = new System.Drawing.Size(0, 25);
             this.timeLabel.TabIndex = 3;
             // 
             // clickLabel
             // 
-            this.clickLabel.AutoSize = true;
             this.clickLabel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.clickLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(130)))), ((int)(((byte)(88)))));
-            this.clickLabel.Location = new System.Drawing.Point(405, 171);
+            this.clickLabel.Location = new System.Drawing.Point(237, 173);
             this.clickLabel.Name = "clickLabel";
-            this.clickLabel.Size = new System.Drawing.Size(0, 25);
+            this.clickLabel.Size = new System.Drawing.Size(409, 25);
             this.clickLabel.TabIndex = 3;
+            this.clickLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // typeTextBox
             // 
