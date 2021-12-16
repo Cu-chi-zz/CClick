@@ -271,7 +271,7 @@ namespace CClick
                             clickLabel.Text = 10 - clickCounter + " left";
                             if (clickCounter == 10)
                             {
-                                string s = "You took " + Math.Round(EndTest(false).TotalSeconds, 3).ToString() + "s to do 10 clicks\n";
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 10 clicks\n";
                                 richTextBox1.Text += s;
                                 AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -286,7 +286,7 @@ namespace CClick
                             clickLabel.Text = 100 - clickCounter + " left";
                             if (clickCounter == 100)
                             {
-                                string s = "You took " + Math.Round(EndTest(false).TotalSeconds, 3).ToString() + "s to do 100 clicks\n";
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 100 clicks\n";
                                 richTextBox1.Text += s;
                                 AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -301,7 +301,7 @@ namespace CClick
                             clickLabel.Text = 1000 - clickCounter + " left";
                             if (clickCounter == 1000)
                             {
-                                string s = "You took " + Math.Round(EndTest(false).TotalSeconds, 3).ToString() + "s to do 1000 clicks\n";
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + "s to do 1000 clicks\n";
                                 richTextBox1.Text += s;
                                 AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -333,7 +333,7 @@ namespace CClick
                                 clickLabel.Text = typeModeEnteredValue - clickCounter + " left";
                                 if (clickCounter == typeModeEnteredValue)
                                 {
-                                    string s = "You took " + Math.Round(EndTest(false).TotalSeconds, 3).ToString() + $"s to do {typeModeEnteredValue} clicks\n";
+                                    string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do {typeModeEnteredValue} clicks\n";
                                     richTextBox1.Text += s;
                                     AddRichTextBoxSaveContent(s);
                                     MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -346,7 +346,7 @@ namespace CClick
                             clickLabel.Text = battleModeHealth + "hp remaining";
                             if (battleModeHealth <= 0)
                             {
-                                string s = "You took " + Math.Round(EndTest(false).TotalSeconds, 3).ToString() + $"s to do kill enemy with {battleHealthTextBox.Text}hp, you were doing {battleModeDamage} damage per click\n";
+                                string s = "You took " + Math.Round(EndTest().TotalSeconds, 3).ToString() + $"s to do kill enemy with {battleHealthTextBox.Text}hp, you were doing {battleModeDamage} damage per click\n";
                                 richTextBox1.Text += s;
                                 AddRichTextBoxSaveContent(s);
                                 MessageBox.Show("Test finished", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -476,14 +476,14 @@ namespace CClick
             {
                 if (!int.TryParse(battleHealthTextBox.Text, out battleModeHealth))
                 {
-                    EndTest(false);
+                    EndTest();
                     MessageBox.Show("The entered value is not correct for Health", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
                 if (!int.TryParse(battleDamageTextBox.Text, out battleModeDamage))
                 {
-                    EndTest(false);
+                    EndTest();
                     MessageBox.Show("The entered value is not correct for Damage", "Info", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -503,7 +503,7 @@ namespace CClick
             #endregion
         }
 
-        private TimeSpan EndTest(bool fromStopButton)
+        private TimeSpan EndTest(bool fromStopButton = false)
         {
             #region Changing / removing / creating vars
             watcher.Stop();
@@ -604,7 +604,7 @@ namespace CClick
                     if (watcher.ElapsedMilliseconds >= 10000)
                     {
                         long ms = watcher.ElapsedMilliseconds;
-                        EndTest(false);
+                        EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
                             string s = $"Clicked {clickCounter} times in 10s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
@@ -620,7 +620,7 @@ namespace CClick
                     if (watcher.ElapsedMilliseconds >= 1000)
                     {
                         long ms = watcher.ElapsedMilliseconds;
-                        EndTest(false);
+                        EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
                             string s = $"Clicked {clickCounter} times in 1s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
@@ -636,7 +636,7 @@ namespace CClick
                     if (watcher.ElapsedMilliseconds >= secFromTextBox * 1000)
                     {
                         long ms = watcher.ElapsedMilliseconds;
-                        EndTest(false);
+                        EndTest();
                         richTextBox1.Invoke(new Action(() =>
                         {
                             string s = $"Clicked {clickCounter} times in {secFromTextBox}s\nClicks per second on average: \n{ToClickPerSeconds(clickCounter, ms)}cps\n";
@@ -972,7 +972,7 @@ namespace CClick
                 SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
-            jData.WriteData(dateToWrite, "data//data.json");
+            jData.WriteData(dateToWrite, "data\\data.json");
 
             updateLocalData();
         }
@@ -1017,7 +1017,7 @@ namespace CClick
                 SaveBestScoreForEachTest = settingsForm.saveBestCheckBox.Checked
             };
 
-            jData.WriteData(dateToWrite, "data//data.json");
+            jData.WriteData(dateToWrite, "data\\data.json");
 
             updateLocalData();
         }
