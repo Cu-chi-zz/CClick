@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -914,7 +914,7 @@ namespace CClick
                 SaveBestScoreForEachTest = userData.SaveBestScoreForEachTest
             };
 
-            if (!jData.WriteData(dateToWrite, "data//data.json"))
+            if (!jData.WriteData(dateToWrite, "data\\data.json"))
             {
                 MessageBox.Show("An error occured: Can't write json data.\nContact support or create issue on github", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
